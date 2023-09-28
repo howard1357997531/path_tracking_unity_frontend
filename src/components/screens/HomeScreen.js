@@ -3,27 +3,13 @@ import { Box, Button, Stack, Typography, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import aos from "aos";
 import "aos/dist/aos.css";
+import "./css/Home.css";
 
 function HomeScreen() {
   const navigate = useNavigate();
   const [firstButtonIsHovered, setFirstButtonIsHovered] = useState(false);
   const [secondButtonIsHovered, setsecondButtonIsHovered] = useState(false);
 
-  // useEffect(() => {
-  //   document.querySelectorAll(".aoxItem").forEach((el) => {
-  //     el.setAttribute("data-aos", "zoom-in");
-  //   });
-  //   setTimeout(() => {
-  //     aos.init();
-  //     // 初始化 AOS 并手动触发动画
-  //     aos.refresh();
-  //   }, 200);
-  //   setTimeout(() => {
-  //     document.querySelectorAll(".aoxItem").forEach((el) => {
-  //       el.removeAttribute("data-aos");
-  //     });
-  //   }, 1000);
-  // }, []);
   const introduction = [
     "使用3D相機掃描物體，接著會開啟3D繪圖頁面給使用者做畫點、繪圖之功能",
     "之前已經掃描過物體，直接選擇3D物體然後啟動手臂",
@@ -51,6 +37,7 @@ function HomeScreen() {
   });
   const StyleButton = styled(Button)(({ theme }) => ({
     height: "10vw",
+    width: "45%",
     fontSize: "26px",
     cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
@@ -58,23 +45,23 @@ function HomeScreen() {
       color: "orange",
     },
     [theme.breakpoints.up("sm")]: {
-      width: "100px",
+      // width: "100px",
       color: "red",
     },
     [theme.breakpoints.up("md")]: {
-      width: "200px",
+      // width: "200px",
       color: "yellow",
     },
     [theme.breakpoints.up("lg")]: {
-      width: "300px",
+      // width: "300px",
       color: "green",
     },
     [theme.breakpoints.up("xl")]: {
-      width: "400px",
+      // width: "400px",
       color: "blue",
     },
     "&:hover": {
-      transform: "scale(1.2)",
+      // transform: "scale(1.1)",
       transition: "all 0.2s ease-in-out",
     },
     "&:active": {
@@ -89,12 +76,36 @@ function HomeScreen() {
   });
   const StyleIntroduction = styled(Typography)({});
 
+  const [btnEffect, setBtnEffect] = useState(false);
+  const btnClassName = `aoxItem ${btnEffect ? "btn-effect" : ""}`;
+  useEffect(() => {
+    if (!btnEffect) {
+      document.querySelectorAll(".aoxItem").forEach((el) => {
+        el.setAttribute("data-aos", "zoom-in");
+      });
+      setTimeout(() => {
+        aos.init();
+        // 初始化 AOS 并手动触发动画
+        aos.refresh();
+      }, 200);
+      setTimeout(() => {
+        document.querySelectorAll(".aoxItem").forEach((el) => {
+          el.removeAttribute("data-aos");
+        });
+      }, 400);
+    }
+  }, [btnEffect]);
+
   const createModelHandler = () => {
-    navigate("/create-model");
+    setBtnEffect(true);
+    setTimeout(() => {
+      setBtnEffect(false);
+    }, 1000);
+    // navigate("/create-model");
   };
 
   const existModelHandler = () => {
-    navigate("/operation-Interface");
+    // navigate("/operation-Interface");
   };
 
   const handleMouseEnter = (btn) => {
@@ -116,7 +127,7 @@ function HomeScreen() {
   return (
     <StyleBox>
       <StyleTypographyBox>
-        <StyleTypography variant="h4" className="aoxItem">
+        <StyleTypography variant="h4" className={btnClassName}>
           請選擇方式
         </StyleTypography>
       </StyleTypographyBox>
@@ -125,18 +136,18 @@ function HomeScreen() {
         <StyleButton
           variant="outlined"
           onClick={createModelHandler}
-          onMouseEnter={() => handleMouseEnter("firstBtn")}
-          onMouseLeave={() => handleMouseLeave("firstBtn")}
-          className="aoxItem"
+          // onMouseEnter={() => handleMouseEnter("firstBtn")}
+          // onMouseLeave={() => handleMouseLeave("firstBtn")}
+          className={btnClassName}
         >
           創建新模型
         </StyleButton>
         <StyleButton
           variant="outlined"
           onClick={existModelHandler}
-          onMouseEnter={() => handleMouseEnter("secondBtn")}
-          onMouseLeave={() => handleMouseLeave("secondBtn")}
-          className="aoxItem"
+          // onMouseEnter={() => handleMouseEnter("secondBtn")}
+          // onMouseLeave={() => handleMouseLeave("secondBtn")}
+          className={btnClassName}
         >
           使用現有模型
         </StyleButton>
