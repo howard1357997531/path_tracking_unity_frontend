@@ -1,0 +1,25 @@
+.scroll::-webkit-scrollbar {
+    width: 15px;
+  }
+
+.scroll::-webkit-scrollbar-track {
+    background-color: #bcaaa4;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: #795548;
+}
+
+/* controlRobotField-scroll */
+.controlRobotField-scroll::-webkit-scrollbar {
+    width: 15px;
+  }
+
+.controlRobotField-scroll::-webkit-scrollbar-track {
+    background-color: #b39ddb;
+}
+
+.controlRobotField-scroll::-webkit-scrollbar-thumb {
+    background-color: #673ab7;
+}
+

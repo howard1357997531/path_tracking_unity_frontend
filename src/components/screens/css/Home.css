@@ -1,0 +1,9 @@
+.custom-button:hover{
+    cursor: "pointer";
+    transform: "scale(1.2)";
+}
+
+.custom-button{
+    background-color: aliceblue;
+}
+
