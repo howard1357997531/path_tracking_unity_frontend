@@ -100,12 +100,13 @@ function HomeScreen() {
     setBtnEffect(true);
     setTimeout(() => {
       setBtnEffect(false);
+      navigate("/create-model");
     }, 1000);
-    // navigate("/create-model");
+    setTimeout(() => {}, 1200);
   };
 
   const existModelHandler = () => {
-    // navigate("/operation-Interface");
+    navigate("/operation-Interface");
   };
 
   const handleMouseEnter = (btn) => {

@@ -13,7 +13,6 @@ function SelectModelField() {
     padding: "0px 30px",
     backgroundColor: `${brown[300]}`,
   });
-
   const StyleBox = styled(Box)({
     display: "flex",
     flexDirection: "column",
@@ -21,14 +20,12 @@ function SelectModelField() {
     height: "85vh",
     padding: "2vh 0px",
   });
-
   const StyleUsingModelBox = styled(Box)({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     height: "20vh",
   });
-
   const StyleTabsBox = styled(Box)({
     position: "relative",
     display: "flex",
@@ -37,7 +34,6 @@ function SelectModelField() {
     width: "100%",
     height: "60vh",
   });
-
   const StyleTextFieldBox = styled(Box)({
     postion: "relative",
     display: "flex",
@@ -69,6 +65,7 @@ function SelectModelField() {
           <ModelTabs />
         </StyleTabsBox>
       </StyleBox>
+      <div></div>
     </StyleCard>
   );
 }
