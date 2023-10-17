@@ -115,9 +115,9 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
 
     const formData = new FormData();
     formData.append("blob", blob);
-    axios.post("http://127.0.0.1:8000/SavePly/", formData).then((res) => {
-      console.log(res.data);
-    });
+    // axios.post("http://127.0.0.1:8000/SavePly/", formData).then((res) => {
+    //   console.log(res.data);
+    // });
     // const downloadLink = document.createElement("a");
     // downloadLink.href = URL.createObjectURL(blob);
     // downloadLink.download = "model.ply";

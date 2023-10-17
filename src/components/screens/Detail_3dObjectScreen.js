@@ -135,6 +135,19 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
     document.body.removeChild(downloadLink);
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://127.0.0.1:8000/Detail_3D_object/${detail.id}/`)
+  //     .then((res) => {
+  //       console.log(parseInt("detail.id:", detail.id));
+  //       console.log(res.data);
+  //       console.log("react obj_url:", res.data.obj_url);
+  //       setDataID(parseInt(res.data.id));
+  //       setObjUrl(res.data.obj_url);
+  //       setAbleID(true);
+  //     });
+  // }, []);
+
   const getObjUrl = (e) => {
     axios
       .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
