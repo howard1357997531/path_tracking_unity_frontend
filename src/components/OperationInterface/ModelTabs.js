@@ -66,18 +66,18 @@ export default function ModelTabs() {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <StyleTab label="常用" {...a11yProps(0)} />
-            <StyleTab label="選擇模型" {...a11yProps(1)} />
+            <StyleTab label="選擇模型" {...a11yProps(0)} />
+            <StyleTab label="常用" {...a11yProps(1)} />
           </Tabs>
         </ThemeProvider>
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        <SelectModel title="commonly used" />
+        <SelectModel title="select model" />
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={1}>
-        <SelectModel title="select model" />
+        <SelectModel title="commonly used" />
       </CustomTabPanel>
     </Box>
   );

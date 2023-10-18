@@ -61,7 +61,7 @@ function HomeScreen() {
       color: "blue",
     },
     "&:hover": {
-      // transform: "scale(1.1)",
+      transform: "scale(1.1)",
       transition: "all 0.2s ease-in-out",
     },
     "&:active": {
@@ -97,12 +97,13 @@ function HomeScreen() {
   }, [btnEffect]);
 
   const createModelHandler = () => {
-    setBtnEffect(true);
-    setTimeout(() => {
-      setBtnEffect(false);
-      navigate("/create-model");
-    }, 1000);
-    setTimeout(() => {}, 1200);
+    // setBtnEffect(true);
+    // setTimeout(() => {
+    //   setBtnEffect(false);
+    //   navigate("/create-model");
+    // }, 1000);
+    // setTimeout(() => {}, 1200);
+    navigate("/create-model");
   };
 
   const existModelHandler = () => {
@@ -128,7 +129,7 @@ function HomeScreen() {
   return (
     <StyleBox>
       <StyleTypographyBox>
-        <StyleTypography variant="h4" className={btnClassName}>
+        <StyleTypography variant="h4" className="aoxItem">
           請選擇方式
         </StyleTypography>
       </StyleTypographyBox>
@@ -137,18 +138,18 @@ function HomeScreen() {
         <StyleButton
           variant="outlined"
           onClick={createModelHandler}
-          // onMouseEnter={() => handleMouseEnter("firstBtn")}
-          // onMouseLeave={() => handleMouseLeave("firstBtn")}
-          className={btnClassName}
+          onMouseEnter={() => handleMouseEnter("firstBtn")}
+          onMouseLeave={() => handleMouseLeave("firstBtn")}
+          className="aoxItem"
         >
           創建新模型
         </StyleButton>
         <StyleButton
           variant="outlined"
           onClick={existModelHandler}
-          // onMouseEnter={() => handleMouseEnter("secondBtn")}
-          // onMouseLeave={() => handleMouseLeave("secondBtn")}
-          className={btnClassName}
+          onMouseEnter={() => handleMouseEnter("secondBtn")}
+          onMouseLeave={() => handleMouseLeave("secondBtn")}
+          className="aoxItem"
         >
           使用現有模型
         </StyleButton>

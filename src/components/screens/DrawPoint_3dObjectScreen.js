@@ -5,12 +5,14 @@ import {
   Stack,
   Typography,
   styled,
+  useTheme,
 } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import Spinner from "../tool/Spinner";
 import { brown } from "@mui/material/colors";
+import "./css/DrawPoint.css";
 
 function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
   const {
@@ -207,6 +209,8 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
     }
   }, [sendBoolMessage, sendMessage]);
 
+  const theme = useTheme();
+
   return (
     <Container sx={{ p: 3 }}>
       <Stack direction="row" justifyContent="center">
@@ -218,6 +222,15 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
             backgroundColor: brown[500],
             borderRadius: "30px",
             outline: `6px solid ${brown[700]}`,
+            [theme.breakpoints.between("sm", "md")]: {
+              width: "800px",
+              height: "500px",
+            },
+            "@media (max-width: 900px) and (min-width: 600px) and (max-height: 400px)":
+              {
+                width: "464px",
+                height: "290px",
+              },
           }}
         >
           <StyleSpinnerBox>
@@ -233,10 +246,11 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
             }}
             unityProvider={unityProvider}
             tabIndex={1} // 一定要這段才能用 shift 或輸入名字
+            className="unity"
           />
         </Box>
       </Stack>
-      <Button variant="outline" onClick={getObjUrl}>
+      {/* <Button variant="outline" onClick={getObjUrl}>
         傳送
       </Button>
       <Button variant="outline" onClick={FullClick}>
@@ -244,7 +258,7 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
       </Button>
       <Button variant="outline" onClick={languageSwitch}>
         切換語言
-      </Button>
+      </Button> */}
     </Container>
   );
 }

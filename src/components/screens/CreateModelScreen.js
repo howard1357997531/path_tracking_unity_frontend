@@ -263,11 +263,11 @@ export default function CreateModelScreen() {
                           inputProps={{ "aria-label": "Without label" }}
                         >
                           <MenuItem value="">
-                            <em>3D 相機</em>
+                            <em>Kientic 相機</em>
                           </MenuItem>
-                          <MenuItem value={10}>Web 相機</MenuItem>
-                          <MenuItem value={20}>intel 相機</MenuItem>
-                          {/* <MenuItem value={30}>3D 相機</MenuItem> */}
+                          <MenuItem value={10}>Mech_Mind 相機</MenuItem>
+                          <MenuItem value={20}>Zed 相機</MenuItem>
+                          <MenuItem value={30}>Zivid 相機</MenuItem>
                         </Select>
                       </FormControl>
                     </Box>

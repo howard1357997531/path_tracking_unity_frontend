@@ -65,7 +65,6 @@ function SelectModelField() {
           <ModelTabs />
         </StyleTabsBox>
       </StyleBox>
-      <div></div>
     </StyleCard>
   );
 }
