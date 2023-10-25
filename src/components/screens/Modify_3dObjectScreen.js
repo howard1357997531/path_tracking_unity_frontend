@@ -12,6 +12,7 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 import Spinner from "../tool/Spinner";
 import { brown } from "@mui/material/colors";
 import { useSelector } from "react-redux";
+import { domain } from "../../env";
 
 function Modify_3dObjectScreen({ sendBoolMessage }) {
   const { modify } = useSelector((state) => state.objectSetData);
@@ -33,7 +34,7 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
   const [saveImage, setSaveImage] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const name = "output";
-  const customURL = "http://127.0.0.1:8000/Detail_3D_object/";
+  const customURL = `${domain}/Detail_3D_object/`;
 
   const [dataID, setDataID] = useState(modify.id);
   const [isAbleID, setAbleID] = useState(false);
@@ -133,45 +134,39 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
   };
 
   const getObjUrl = (e) => {
-    axios
-      .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
-      .then((res) => {
-        console.log("getObjUrl: ", e.target.value);
-        console.log("getObjUrl: ", res.data.obj_url);
-        setDataID(parseInt(e.target.value));
-        setAbleID(true);
-        setTimeout(() => {
-          sentObj(res.data.obj_url);
-        }, 100);
-      });
+    axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
+      console.log("getObjUrl: ", e.target.value);
+      console.log("getObjUrl: ", res.data.obj_url);
+      setDataID(parseInt(e.target.value));
+      setAbleID(true);
+      setTimeout(() => {
+        sentObj(res.data.obj_url);
+      }, 100);
+    });
   };
 
   const getObjUrl2 = (e) => {
-    axios
-      .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
-      .then((res) => {
-        console.log("getObjUrl2: ", e.target.value);
-        console.log("getObjUrl2: ", res.data.obj_url);
-        setDataID(parseInt(e.target.value));
-        setAbleID(true);
-        setTimeout(() => {
-          sentObj(res.data.obj_url);
-        }, 100);
-      });
+    axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
+      console.log("getObjUrl2: ", e.target.value);
+      console.log("getObjUrl2: ", res.data.obj_url);
+      setDataID(parseInt(e.target.value));
+      setAbleID(true);
+      setTimeout(() => {
+        sentObj(res.data.obj_url);
+      }, 100);
+    });
   };
 
   const getObjUrl3 = (e) => {
-    axios
-      .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
-      .then((res) => {
-        console.log("getObjUrl3: ", e.target.value);
-        console.log("getObjUrl3: ", res.data.obj_url);
-        setDataID(parseInt(e.target.value));
-        setAbleID(true);
-        setTimeout(() => {
-          sentObj(res.data.obj_url);
-        }, 100);
-      });
+    axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
+      console.log("getObjUrl3: ", e.target.value);
+      console.log("getObjUrl3: ", res.data.obj_url);
+      setDataID(parseInt(e.target.value));
+      setAbleID(true);
+      setTimeout(() => {
+        sentObj(res.data.obj_url);
+      }, 100);
+    });
   };
 
   // 還要傳檔案位置 blob

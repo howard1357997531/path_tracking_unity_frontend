@@ -12,6 +12,7 @@ import {
   OBJECT_SET_MODIFY_DATA,
 } from "../constants/constants";
 import axios from "axios";
+import { domain } from "../env";
 
 export const objectDeatil = () => async (dispatch) => {
   try {
@@ -19,7 +20,7 @@ export const objectDeatil = () => async (dispatch) => {
       type: OBJECT_DETAIL_REQUEST,
     });
 
-    const { data } = await axios.get("http://127.0.0.1:8000/get_object_3d/");
+    const { data } = await axios.get(`${domain}/get_object_3d/`);
 
     dispatch({
       type: OBJECT_DETAIL_SUCCESS,
@@ -42,12 +43,9 @@ export const objectSelectModel = (id) => async (dispatch) => {
       type: OBJECT_SELECT_OR_REMOVE_REQUEST,
     });
 
-    const { data } = await axios.put(
-      `http://127.0.0.1:8000/ChangeSelect_3DObject/${id}/`,
-      {
-        is_selected: true,
-      }
-    );
+    const { data } = await axios.put(`${domain}/ChangeSelect_3DObject/${id}/`, {
+      is_selected: true,
+    });
 
     dispatch({
       type: OBJECT_SELECT_OR_REMOVE_SUCCESS,
@@ -70,12 +68,9 @@ export const objectRemoveSelectModel = (id) => async (dispatch) => {
       type: OBJECT_SELECT_OR_REMOVE_REQUEST,
     });
 
-    const { data } = await axios.put(
-      `http://127.0.0.1:8000/ChangeSelect_3DObject/${id}/`,
-      {
-        is_selected: false,
-      }
-    );
+    const { data } = await axios.put(`${domain}/ChangeSelect_3DObject/${id}/`, {
+      is_selected: false,
+    });
 
     dispatch({
       type: OBJECT_SELECT_OR_REMOVE_SUCCESS,
@@ -98,12 +93,9 @@ export const objectAddPin = (id) => async (dispatch) => {
       type: OBJECT_ISPINNED_OR_NOT_REQUEST,
     });
 
-    const { data } = await axios.put(
-      `http://127.0.0.1:8000/get_object_3d/${id}/`,
-      {
-        is_pinned: true,
-      }
-    );
+    const { data } = await axios.put(`${domain}/get_object_3d/${id}/`, {
+      is_pinned: true,
+    });
 
     dispatch({
       type: OBJECT_ISPINNED_OR_NOT_SUCCESS,
@@ -126,12 +118,9 @@ export const objectRemovePin = (id) => async (dispatch) => {
       type: OBJECT_ISPINNED_OR_NOT_REQUEST,
     });
 
-    const { data } = await axios.put(
-      `http://127.0.0.1:8000/get_object_3d/${id}/`,
-      {
-        is_pinned: false,
-      }
-    );
+    const { data } = await axios.put(`${domain}/get_object_3d/${id}/`, {
+      is_pinned: false,
+    });
 
     dispatch({
       type: OBJECT_ISPINNED_OR_NOT_SUCCESS,

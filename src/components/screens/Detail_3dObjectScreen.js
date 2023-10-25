@@ -12,10 +12,11 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 import Spinner from "../tool/Spinner";
 import { brown } from "@mui/material/colors";
 import { useSelector } from "react-redux";
+import { domain } from "../../env";
 
 function Detail_3dObjectScreen({ sendBoolMessage }) {
   const { detail } = useSelector((state) => state.objectSetData);
-  const customURL = "http://127.0.0.1:8000/get_object_3d/";
+  const customURL = `${domain}/get_object_3d/`;
   const name = "output";
   const [dataID, setDataID] = useState(detail.id);
   const [objUrl, setObjUrl] = useState(detail.objUrl);
@@ -36,7 +37,6 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
 
   const [saveImage, setSaveImage] = useState("");
   const [isDownload, setIsDownload] = useState(false);
-
   const [isAbleID, setAbleID] = useState(false);
   const [isAbleURL, setAbleURL] = useState(false);
   const [isEnglish, setIsEnglish] = useState(1);
@@ -102,7 +102,22 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
     }
   }, [isDownload, isAbleID, isAbleURL]);
 
+  const downloadImage = () => {
+    const byteCharacters = atob(saveImage);
+    const byteArrays = [...byteCharacters].map((char) => char.charCodeAt(0));
+    const blob = new Blob([new Uint8Array(byteArrays)], { type: "image/png" });
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = name;
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
   const idSelect = async () => {
+    console.log(dataID, objUrl);
     sendMessage("Model", "WhichID", dataID);
     await new Promise((resolve) => setTimeout(resolve, 100));
     sentObj(objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
@@ -121,32 +136,18 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
     requestFullscreen(true);
   };
 
-  const downloadImage = () => {
-    const byteCharacters = atob(saveImage);
-    const byteArrays = [...byteCharacters].map((char) => char.charCodeAt(0));
-    const blob = new Blob([new Uint8Array(byteArrays)], { type: "image/png" });
-
-    const downloadLink = document.createElement("a");
-    downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = name;
-
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  };
-
-  useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/Detail_3D_object/${detail.id}/`)
-      .then((res) => {
-        console.log(parseInt("detail.id:", detail.id));
-        console.log(res.data);
-        console.log("react obj_url:", res.data.obj_url);
-        // setDataID(parseInt(res.data.id));
-        // setObjUrl(res.data.obj_url);
-        // setAbleID(true);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://127.0.0.1:8000/Detail_3D_object/${detail.id}/`)
+  //     .then((res) => {
+  //       console.log(parseInt("detail.id:", detail.id));
+  //       console.log(res.data);
+  //       console.log("react obj_url:", res.data.obj_url);
+  //       // setDataID(parseInt(res.data.id));
+  //       // setObjUrl(res.data.obj_url);
+  //       // setAbleID(true);
+  //     });
+  // }, []);
 
   const getObjUrl = (e) => {
     axios

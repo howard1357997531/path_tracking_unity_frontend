@@ -13,6 +13,7 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 import Spinner from "../tool/Spinner";
 import { brown } from "@mui/material/colors";
 import "./css/DrawPoint.css";
+import { domain } from "../../env";
 
 function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
   const {
@@ -28,7 +29,7 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
     frameworkUrl: "Build/DrawScene_0801.framework.js",
     codeUrl: "Build/DrawScene_0801.wasm",
   });
-  const customURL = "http://127.0.0.1:8000/get_object_3d/";
+  const customURL = `${domain}/get_object_3d/`;
 
   // 上傳成功時 isUplaod = true
   const [isUpload, setIsUpload] = useState(false);
@@ -198,7 +199,7 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
   };
 
   const getObjUrl = () => {
-    axios.post("http://127.0.0.1:8000/Generate_3D_object/").then((res) => {
+    axios.post(`${domain}/Generate_3D_object/`).then((res) => {
       sentObj(res.data.obj_file_path);
     });
   };

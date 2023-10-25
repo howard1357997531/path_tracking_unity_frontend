@@ -229,12 +229,8 @@ function SelectModel({ title }) {
 
   const detailModelHandler = (id, objUrl) => {
     let url = "";
-    if (id === 13) {
-      url = "http://127.0.0.1:8000/media/bun_zipper.obj";
-    } else if (id === 14) {
-      url = "http://127.0.0.1:8000/media/gear.obj";
-    } else if (id === 15) {
-      url = "http://127.0.0.1:8000/media/Motorcycle_cylinder_head.obj";
+    if (id === 25) {
+      url = "http://127.0.0.1:8000/media/tool.ply";
     }
     dispatch(objectSetDetailData(id, url));
     localStorage.setItem("route", "/detail-3dObject");
