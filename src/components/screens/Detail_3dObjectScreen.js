@@ -41,14 +41,40 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
   const [isAbleURL, setAbleURL] = useState(false);
   const [isEnglish, setIsEnglish] = useState(1);
 
-  const sentObj = async (objUrl) => {
-    const response = await fetch(objUrl);
-    const dataString = await response.text();
-    const blob = new Blob([dataString], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
+  // const sentObj = async (objUrl) => {
+  //   const response = await fetch(objUrl);
+  //   const dataString = await response.text();
+  //   const blob = new Blob([dataString], { type: "text/plain" });
+  //   const url = URL.createObjectURL(blob);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    sendMessage("Canvas", "LoadPly", url);
+  //   await new Promise((resolve) => setTimeout(resolve, 1000));
+  //   sendMessage("Canvas", "LoadPly", url);
+  // };
+
+  const objDownload = async (objPath) => {
+    try {
+      const response = await axios.get(objPath, {
+        responseType: "arraybuffer",
+      });
+
+      const blob = new Blob([response.data], {
+        type: "application/octet-stream",
+      });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "model.ply";
+
+      //link.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      sendMessage("Canvas", "LoadPly", url);
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading PLY file:", error);
+    }
   };
 
   const handleDownload = useCallback((saveImage) => {
@@ -116,11 +142,12 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
     document.body.removeChild(downloadLink);
   };
 
+  const [objPath, setObjPath] = useState("./1_1.ply");
   const idSelect = async () => {
     console.log(dataID, objUrl);
     sendMessage("Model", "WhichID", dataID);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    sentObj(objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
+    objDownload(objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
   };
 
   const urlSwitch = async () => {

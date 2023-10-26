@@ -51,6 +51,32 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
     sendMessage("Canvas_Import", "LoadPly", url);
   };
 
+  const objDownload = async (objPath) => {
+    try {
+      const response = await axios.get(objPath, {
+        responseType: "arraybuffer",
+      });
+
+      const blob = new Blob([response.data], {
+        type: "application/octet-stream",
+      });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "model.ply";
+
+      //link.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      sendMessage("Canvas", "LoadPly", url);
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading PLY file:", error);
+    }
+  };
+
   const handleDownload = useCallback((saveImage) => {
     setSaveImage(saveImage);
     setIsDownload(true);
@@ -100,10 +126,12 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
     }
   }, [isDownload, isAbleID, isAbleURL]);
 
+  const [objPath, setObjPath] = useState("./1_1.ply");
   const idSelect = async () => {
+    console.log(dataID, modify.objUrl);
     sendMessage("Model", "WhichID", dataID);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    sentObj(modify.objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
+    objDownload(objPath); //告訴 unity 重新載入模型和點(這段不能刪)
   };
 
   const urlSwitch = async () => {
@@ -133,41 +161,41 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
     document.body.removeChild(downloadLink);
   };
 
-  const getObjUrl = (e) => {
-    axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
-      console.log("getObjUrl: ", e.target.value);
-      console.log("getObjUrl: ", res.data.obj_url);
-      setDataID(parseInt(e.target.value));
-      setAbleID(true);
-      setTimeout(() => {
-        sentObj(res.data.obj_url);
-      }, 100);
-    });
-  };
+  // const getObjUrl = (e) => {
+  //   axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
+  //     console.log("getObjUrl: ", e.target.value);
+  //     console.log("getObjUrl: ", res.data.obj_url);
+  //     setDataID(parseInt(e.target.value));
+  //     setAbleID(true);
+  //     setTimeout(() => {
+  //       sentObj(res.data.obj_url);
+  //     }, 100);
+  //   });
+  // };
 
-  const getObjUrl2 = (e) => {
-    axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
-      console.log("getObjUrl2: ", e.target.value);
-      console.log("getObjUrl2: ", res.data.obj_url);
-      setDataID(parseInt(e.target.value));
-      setAbleID(true);
-      setTimeout(() => {
-        sentObj(res.data.obj_url);
-      }, 100);
-    });
-  };
+  // const getObjUrl2 = (e) => {
+  //   axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
+  //     console.log("getObjUrl2: ", e.target.value);
+  //     console.log("getObjUrl2: ", res.data.obj_url);
+  //     setDataID(parseInt(e.target.value));
+  //     setAbleID(true);
+  //     setTimeout(() => {
+  //       sentObj(res.data.obj_url);
+  //     }, 100);
+  //   });
+  // };
 
-  const getObjUrl3 = (e) => {
-    axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
-      console.log("getObjUrl3: ", e.target.value);
-      console.log("getObjUrl3: ", res.data.obj_url);
-      setDataID(parseInt(e.target.value));
-      setAbleID(true);
-      setTimeout(() => {
-        sentObj(res.data.obj_url);
-      }, 100);
-    });
-  };
+  // const getObjUrl3 = (e) => {
+  //   axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
+  //     console.log("getObjUrl3: ", e.target.value);
+  //     console.log("getObjUrl3: ", res.data.obj_url);
+  //     setDataID(parseInt(e.target.value));
+  //     setAbleID(true);
+  //     setTimeout(() => {
+  //       sentObj(res.data.obj_url);
+  //     }, 100);
+  //   });
+  // };
 
   // 還要傳檔案位置 blob
   const [isload, setIsLoad] = useState(false);
@@ -230,7 +258,7 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
           />
         </Box>
       </Stack>
-      <Button variant="outline" onClick={getObjUrl} value="13">
+      {/* <Button variant="outline" onClick={getObjUrl} value="13">
         物件1
       </Button>
       <Button variant="outline" onClick={getObjUrl2} value="14">
@@ -238,7 +266,7 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
       </Button>
       <Button variant="outline" onClick={getObjUrl3} value="15">
         物件3
-      </Button>
+      </Button> */}
       <Button variant="outline" onClick={FullClick}>
         放大
       </Button>
