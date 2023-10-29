@@ -35,8 +35,6 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
   const [isDownload, setIsDownload] = useState(false);
   const name = "output";
   const customURL = `${domain}/Detail_3D_object/`;
-
-  const [dataID, setDataID] = useState(modify.id);
   const [isAbleID, setAbleID] = useState(false);
   const [isAbleURL, setAbleURL] = useState(false);
   const [isEnglish, setIsEnglish] = useState(1);
@@ -69,7 +67,7 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
       //link.click();
 
       await new Promise((resolve) => setTimeout(resolve, 100));
-      sendMessage("Canvas", "LoadPly", url);
+      sendMessage("Canvas_Import", "LoadPly", url);
       await new Promise((resolve) => setTimeout(resolve, 100));
       URL.revokeObjectURL(url);
     } catch (error) {
@@ -128,8 +126,8 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
 
   const [objPath, setObjPath] = useState("./1_1.ply");
   const idSelect = async () => {
-    console.log(dataID, modify.objUrl);
-    sendMessage("Model", "WhichID", dataID);
+    console.log(modify.id, modify.objUrl);
+    sendMessage("Model", "WhichID", modify.id);
     await new Promise((resolve) => setTimeout(resolve, 100));
     objDownload(objPath); //告訴 unity 重新載入模型和點(這段不能刪)
   };
