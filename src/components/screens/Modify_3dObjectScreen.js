@@ -265,10 +265,10 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
       <Button variant="outline" onClick={getObjUrl3} value="15">
         物件3
       </Button> */}
-      <Button variant="outline" onClick={FullClick}>
+      <Button variant="contained" onClick={FullClick}>
         放大
       </Button>
-      <Button variant="outline" onClick={languageSwitch}>
+      <Button variant="contained" onClick={languageSwitch} sx={{ margin: 2 }}>
         切換語言
       </Button>
     </Container>

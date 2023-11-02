@@ -142,7 +142,7 @@ export default function MiniDrawer({ onSendMessageToUnity }) {
     { name: "手臂控制台", url: "/operation-Interface" },
     { name: "3D模型畫點", url: "/draw-point-3dObject" },
     { name: "3D模型修改", url: "/modify-3dObject" },
-    { name: "歷史紀錄", url: "/detail-3dObject" },
+    { name: "3D模型展示", url: "/detail-3dObject" },
     { name: "設定", url: "/setting" },
   ];
 

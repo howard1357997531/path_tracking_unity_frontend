@@ -251,6 +251,12 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
           />
         </Box>
       </Stack>
+      <Button variant="contained" onClick={FullClick}>
+        放大
+      </Button>
+      <Button variant="contained" onClick={languageSwitch} sx={{ margin: 2 }}>
+        切換語言
+      </Button>
       {/* <Button variant="outline" onClick={getObjUrl}>
         傳送
       </Button>

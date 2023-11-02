@@ -281,7 +281,7 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
           />
         </Box>
       </Stack>
-      <Button variant="outline" onClick={getObjUrl} value="13">
+      {/* <Button variant="outline" onClick={getObjUrl} value="13">
         物件1
       </Button>
       <Button variant="outline" onClick={getObjUrl2} value="14">
@@ -289,11 +289,11 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
       </Button>
       <Button variant="outline" onClick={getObjUrl3} value="15">
         物件3
-      </Button>
-      <Button variant="outline" onClick={FullClick}>
+      </Button> */}
+      <Button variant="contained" onClick={FullClick}>
         放大
       </Button>
-      <Button variant="outline" onClick={languageSwitch}>
+      <Button variant="contained" onClick={languageSwitch} sx={{ margin: 2 }}>
         切換語言
       </Button>
     </Container>
