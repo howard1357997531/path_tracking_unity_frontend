@@ -129,7 +129,7 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
     console.log(modify.id, modify.objUrl);
     sendMessage("Model", "WhichID", modify.id);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    objDownload(objPath); //告訴 unity 重新載入模型和點(這段不能刪)
+    objDownload(modify.objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
   };
 
   const urlSwitch = async () => {

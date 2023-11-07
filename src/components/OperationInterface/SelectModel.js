@@ -216,8 +216,12 @@ function SelectModel({ title }) {
 
   const modifyModelHandler = (id, objUrl) => {
     let url = "";
-    if (id === 25) {
+    if (id === 23) {
+      url = `${domain}/media/hat.ply`;
+    } else if (id === 25) {
       url = `${domain}/media/tool.ply`;
+    } else {
+      url = `${domain}/media/gun.ply`;
     }
     dispatch(objectSetModifyData(id, url));
     localStorage.setItem("route", "/modify-3dObject");
@@ -226,9 +230,14 @@ function SelectModel({ title }) {
 
   const detailModelHandler = (id, objUrl) => {
     let url = "";
-    if (id === 25) {
+    if (id === 23) {
+      url = `${domain}/media/hat.ply`;
+    } else if (id === 25) {
       url = `${domain}/media/tool.ply`;
+    } else {
+      url = `${domain}/media/gun.ply`;
     }
+
     dispatch(objectSetDetailData(id, url));
     localStorage.setItem("route", "/detail-3dObject");
     navigate("/detail-3dObject");
