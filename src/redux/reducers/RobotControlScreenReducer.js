@@ -10,7 +10,7 @@ import {
   OBJECT_ISPINNED_OR_NOT_FAIL,
   OBJECT_SET_DETAIL_DATA,
   OBJECT_SET_MODIFY_DATA,
-} from "../constants/constants";
+} from "../constants";
 
 export const objectDetailReducer = (state = { objects: [] }, action) => {
   const { objects } = state;

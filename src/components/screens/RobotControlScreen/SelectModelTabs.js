@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { Tab, ThemeProvider, createTheme, styled } from "@mui/material";
 import SelectModel from "./SelectModel";
 import { brown, yellow } from "@mui/material/colors";
+import SelectModelTabsType from "./SelectModelTabsType";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -34,8 +35,7 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-
-export default function ModelTabs() {
+function SelectModelTabs() {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -73,12 +73,14 @@ export default function ModelTabs() {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        <SelectModel title="select model" />
+        <SelectModelTabsType title="select model" />
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={1}>
-        <SelectModel title="commonly used" />
+        <SelectModelTabsType title="commonly used" />
       </CustomTabPanel>
     </Box>
   );
 }
+
+export default SelectModelTabs;

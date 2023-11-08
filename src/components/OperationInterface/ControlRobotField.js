@@ -1,8 +1,6 @@
 import { Box, Button, Card, Stack, Typography, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import React, { useContext, useState } from "react";
-import axios from "axios";
-import Spinner2 from "../tool/Spinner2";
+import React, { useState } from "react";
 import {
   blueGrey,
   brown,

@@ -10,11 +10,11 @@ import {
   OBJECT_ISPINNED_OR_NOT_FAIL,
   OBJECT_SET_DETAIL_DATA,
   OBJECT_SET_MODIFY_DATA,
-} from "../redux/constants";
+} from "../constants";
 import axios from "axios";
-import { domain } from "../env";
+import { domain } from "../../env";
 
-export const objectDeatil = () => async (dispatch) => {
+export const objectDeatilAction = () => async (dispatch) => {
   try {
     dispatch({
       type: OBJECT_DETAIL_REQUEST,
@@ -37,7 +37,7 @@ export const objectDeatil = () => async (dispatch) => {
   }
 };
 
-export const objectSelectModel = (id) => async (dispatch) => {
+export const objectSelectModelAction = (id) => async (dispatch) => {
   try {
     dispatch({
       type: OBJECT_SELECT_OR_REMOVE_REQUEST,
@@ -62,7 +62,7 @@ export const objectSelectModel = (id) => async (dispatch) => {
   }
 };
 
-export const objectRemoveSelectModel = (id) => async (dispatch) => {
+export const objectRemoveSelectModelAction = (id) => async (dispatch) => {
   try {
     dispatch({
       type: OBJECT_SELECT_OR_REMOVE_REQUEST,
@@ -87,7 +87,7 @@ export const objectRemoveSelectModel = (id) => async (dispatch) => {
   }
 };
 
-export const objectAddPin = (id) => async (dispatch) => {
+export const objectAddPinAction = (id) => async (dispatch) => {
   try {
     dispatch({
       type: OBJECT_ISPINNED_OR_NOT_REQUEST,
@@ -112,7 +112,7 @@ export const objectAddPin = (id) => async (dispatch) => {
   }
 };
 
-export const objectRemovePin = (id) => async (dispatch) => {
+export const objectRemovePinAction = (id) => async (dispatch) => {
   try {
     dispatch({
       type: OBJECT_ISPINNED_OR_NOT_REQUEST,
@@ -137,7 +137,7 @@ export const objectRemovePin = (id) => async (dispatch) => {
   }
 };
 
-export const objectSetDetailData = (id, objUrl) => (dispatch) => {
+export const objectSetDetailDataAction = (id, objUrl) => (dispatch) => {
   try {
     dispatch({
       type: OBJECT_SET_DETAIL_DATA,
@@ -157,7 +157,7 @@ export const objectSetDetailData = (id, objUrl) => (dispatch) => {
   } catch (error) {}
 };
 
-export const objectSetModifyData = (id, objUrl) => (dispatch) => {
+export const objectSetModifyDataAction = (id, objUrl) => (dispatch) => {
   try {
     dispatch({
       type: OBJECT_SET_MODIFY_DATA,

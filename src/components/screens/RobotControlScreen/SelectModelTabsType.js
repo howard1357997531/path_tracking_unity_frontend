@@ -1,190 +1,50 @@
 import {
   Box,
-  Button,
   Card,
   CardMedia,
   CircularProgress,
   Dialog,
   DialogContent,
-  Stack,
   Typography,
-  styled,
 } from "@mui/material";
 import {
-  brown,
-  deepPurple,
-  lightBlue,
-  orange,
-  pink,
-  red,
-  teal,
-  yellow,
-} from "@mui/material/colors";
+  StyleBox,
+  StyleCircularProgressBox,
+  StyleStack,
+  StyleIconBox,
+  StyleSettingsApplicationsOutlinedIcon,
+  StylePushPinOutlinedIcon,
+  StylePushPinRoundedIcon,
+  StyleDialogStack,
+  StyleDialogButton,
+  StyleDialogButton2,
+  StyleDialogButton3,
+  StyleDialogButton4,
+} from "../../../styles/RobotControlScreen/SelectModelTabsType.js";
+import { brown, deepPurple, pink } from "@mui/material/colors";
 import React, { useState } from "react";
-import SettingsApplicationsOutlinedIcon from "@mui/icons-material/SettingsApplicationsOutlined";
-import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
-import PushPinRoundedIcon from "@mui/icons-material/PushPinRounded";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  objectAddPin,
-  objectRemovePin,
-  objectSelectModel,
-  objectSetDetailData,
-  objectSetModifyData,
-} from "../../actions/objectActions";
-import { domain } from "../../env";
+  objectAddPinAction,
+  objectRemovePinAction,
+  objectSelectModelAction,
+  objectSetDetailDataAction,
+  objectSetModifyDataAction,
+} from "../../../redux/actions/RobotControlScreenAction.js";
+import "./css/SelectModelTabsType.css";
+import { domain } from "../../../env";
 
-function SelectModel({ title }) {
+function SelectModelTabsType({ title }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, objects } = useSelector((state) => state.objectDetail);
   const [dialogId, setDialogId] = useState("");
 
-  const StyleBox = styled(Box)({
-    height: "46vh",
-    overflowY: "auto",
-    border: `1px solid ${brown[500]}`,
-  });
-
-  const StyleCircularProgressBox = styled(Box)({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "calc(46vh - 2px)",
-  });
-
-  const StyleStack = styled(Stack)({
-    height: "13vh",
-    borderBottom: `1px solid ${brown[500]}`,
-    alignItems: "center",
-    padding: "10px",
-    "&:hover": {
-      backgroundColor: "rgba(188, 160, 150, 0.545)",
-    },
-  });
-
-  const StyleIconBox = styled(Box)({
-    display: "flex",
-    justifyContent: "right",
-    alignItems: "center",
-    paddingRight: "1%",
-  });
-
-  const StyleSettingsApplicationsOutlinedIcon = styled(
-    SettingsApplicationsOutlinedIcon
-  )({
-    marginRight: "10px",
-    color: brown[500],
-    fontSize: "40px",
-    "&:hover": {
-      cursor: "pointer",
-      transform: "scale(1.2)",
-      transition: "all 0.1s ease-in-out",
-    },
-    "&:active": {
-      transform: "scale(0.9)",
-    },
-  });
-
-  const StylePushPinOutlinedIcon = styled(PushPinOutlinedIcon)({
-    color: yellow[500],
-    fontSize: "30px",
-    "&:hover": {
-      cursor: "pointer",
-      transform: "scale(1.2)",
-      transition: "all 0.1s ease-in-out",
-    },
-    "&:active": {
-      transform: "scale(0.9)",
-    },
-  });
-
-  const StylePushPinRoundedIcon = styled(PushPinRoundedIcon)({
-    color: yellow[500],
-    fontSize: "30px",
-    "&:hover": {
-      cursor: "pointer",
-      transform: "scale(1.2)",
-      transition: "all 0.1s ease-in-out",
-    },
-    "&:active": {
-      transform: "scale(0.9)",
-    },
-  });
-
-  const StyleDialogStack = styled(Stack)({
-    width: "552px",
-    height: "150px",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  });
-
-  const StyleDialogButton = styled(Button)({
-    width: "30%",
-    height: "70%",
-    fontSize: "26px",
-    backgroundColor: `${lightBlue[300]}`,
-    "&:hover": {
-      backgroundColor: `${lightBlue[200]}`,
-      transform: "scale(1.1)",
-      transition: "all 0.1s ease-in-out",
-    },
-    "&:active": {
-      transform: "scale(0.95)",
-    },
-  });
-
-  const StyleDialogButton2 = styled(Button)({
-    width: "30%",
-    height: "70%",
-    fontSize: "26px",
-    backgroundColor: `${orange[300]}`,
-    "&:hover": {
-      backgroundColor: `${orange[200]}`,
-      transform: "scale(1.1)",
-      transition: "all 0.1s ease-in-out",
-    },
-    "&:active": {
-      transform: "scale(0.95)",
-    },
-  });
-
-  const StyleDialogButton3 = styled(Button)({
-    width: "30%",
-    height: "70%",
-    fontSize: "26px",
-    backgroundColor: `${teal[300]}`,
-    "&:hover": {
-      backgroundColor: `${teal[200]}`,
-      transform: "scale(1.1)",
-      transition: "all 0.1s ease-in-out",
-    },
-    "&:active": {
-      transform: "scale(0.95)",
-    },
-  });
-
-  const StyleDialogButton4 = styled(Button)({
-    width: "30%",
-    height: "70%",
-    fontSize: "26px",
-    backgroundColor: `${red[600]}`,
-    "&:hover": {
-      backgroundColor: `${red[500]}`,
-      transform: "scale(1.1)",
-      transition: "all 0.1s ease-in-out",
-    },
-    "&:active": {
-      transform: "scale(0.95)",
-    },
-  });
-
   const AddPinHandler = (id) => {
-    dispatch(objectAddPin(id));
+    dispatch(objectAddPinAction(id));
   };
 
   const RemovePinHandler = (id) => {
@@ -200,16 +60,16 @@ function SelectModel({ title }) {
         cancelButtonText: "返回",
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(objectRemovePin(id));
+          dispatch(objectRemovePinAction(id));
         }
       });
     } else {
-      dispatch(objectRemovePin(id));
+      dispatch(objectRemovePinAction(id));
     }
   };
 
   const selectModelHandler = () => {
-    dispatch(objectSelectModel(dialogId));
+    dispatch(objectSelectModelAction(dialogId));
     setOpen(false);
   };
 
@@ -222,7 +82,7 @@ function SelectModel({ title }) {
     } else {
       url = `${domain}/media/gun.ply`;
     }
-    dispatch(objectSetModifyData(id, url));
+    dispatch(objectSetModifyDataAction(id, url));
     localStorage.setItem("route", "/modify-3dObject");
     navigate("/modify-3dObject");
   };
@@ -237,7 +97,7 @@ function SelectModel({ title }) {
       url = `${domain}/media/gun.ply`;
     }
 
-    dispatch(objectSetDetailData(id, url));
+    dispatch(objectSetDetailDataAction(id, url));
     localStorage.setItem("route", "/detail-3dObject");
     navigate("/detail-3dObject");
   };
@@ -277,7 +137,6 @@ function SelectModel({ title }) {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <StyleBox className="scroll">
       {loading ? (
@@ -398,4 +257,4 @@ function SelectModel({ title }) {
   );
 }
 
-export default SelectModel;
+export default SelectModelTabsType;
