@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { yellow } from "@mui/material/colors";
 import {
   StyleBox1,
   StyleBox2,
@@ -8,7 +9,6 @@ import {
   StyleDialogButton2,
   StyleDialogButton3,
   StyleDialogStack,
-  StyleStack,
   StyleTypography,
 } from "../../../styles/RobotControlScreen/Using3DModel.js";
 import {
@@ -16,7 +16,9 @@ import {
   CardMedia,
   Dialog,
   DialogContent,
+  Stack,
   Typography,
+  styled,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
@@ -26,6 +28,7 @@ import {
   objectDeatilAction,
   objectRemoveSelectModelAction,
 } from "../../../redux/actions/RobotControlScreenAction.js";
+import { brown } from "@mui/material/colors";
 
 function Using3DModel() {
   const navigate = useNavigate();
@@ -34,6 +37,27 @@ function Using3DModel() {
   // const [objectDetail, setObjectDetail] = useState(objects);
   const [selectObject, setSelectObject] = useState({});
   const [hasSelectObject, setHasSelectObject] = useState(false);
+
+  const StyleStack = styled(Stack)({
+    position: "relative",
+    justifyContent: !hasSelectObject ? "center" : "none",
+    alignItems: "center",
+    border: hasSelectObject
+      ? `1px solid ${yellow[300]}`
+      : `2px dashed ${yellow[300]}`,
+    backgroundColor: hasSelectObject ? `${brown[500]}` : `transition`,
+    color: `${yellow[300]}`,
+    width: "100%",
+    height: "14vh",
+    "&:hover": {
+      cursor: "pointer",
+      transform: "scale(1.03)",
+      transition: "all 0.2s ease-in-out",
+    },
+    "&:active": {
+      transform: "scale(0.95)",
+    },
+  });
 
   // Dialog
   const [open, setOpen] = useState(false);

@@ -9,12 +9,12 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import Spinner from "../tool/Spinner";
-import { brown } from "@mui/material/colors";
 import { useSelector } from "react-redux";
-import { domain } from "../../env";
+import Spinner from "../../../tool/Spinner";
+import { brown } from "@mui/material/colors";
+import { domain } from "../../../env";
 
-function Detail_3dObjectScreen({ sendBoolMessage }) {
+function ShowDesktop({ sendBoolMessage }) {
   const { detail } = useSelector((state) => state.objectSetData);
   const customURL = `${domain}/get_object_3d/`;
   const name = "output";
@@ -281,15 +281,6 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
           />
         </Box>
       </Stack>
-      {/* <Button variant="outline" onClick={getObjUrl} value="13">
-        物件1
-      </Button>
-      <Button variant="outline" onClick={getObjUrl2} value="14">
-        物件2
-      </Button>
-      <Button variant="outline" onClick={getObjUrl3} value="15">
-        物件3
-      </Button> */}
       <Button variant="contained" onClick={FullClick}>
         放大
       </Button>
@@ -300,4 +291,4 @@ function Detail_3dObjectScreen({ sendBoolMessage }) {
   );
 }
 
-export default Detail_3dObjectScreen;
+export default ShowDesktop;

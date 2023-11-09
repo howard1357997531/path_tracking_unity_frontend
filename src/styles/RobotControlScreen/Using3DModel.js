@@ -6,28 +6,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { brown, lightBlue, orange, teal, yellow } from "@mui/material/colors";
-
-export const StyleStack = styled(Stack)({
-  position: "relative",
-  justifyContent: !hasSelectObject ? "center" : "none",
-  alignItems: "center",
-  border: hasSelectObject
-    ? `1px solid ${yellow[300]}`
-    : `2px dashed ${yellow[300]}`,
-  backgroundColor: hasSelectObject ? `${brown[500]}` : `transition`,
-  color: `${yellow[300]}`,
-  width: "100%",
-  height: "14vh",
-  "&:hover": {
-    cursor: "pointer",
-    transform: "scale(1.03)",
-    transition: "all 0.2s ease-in-out",
-  },
-  "&:active": {
-    transform: "scale(0.95)",
-  },
-});
+import { lightBlue, orange, teal, yellow } from "@mui/material/colors";
 
 export const StyleCircularProgress = styled(CircularProgress)({
   position: "absolute",

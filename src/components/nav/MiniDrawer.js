@@ -118,9 +118,9 @@ export default function MiniDrawer({ onSendMessageToUnity }) {
     // 離開有外嵌 unity 的頁面要 sendMessage("Model", "CloseUnityApp") 給C#,
     // 不然很容易會發生問題
     if (
-      currentPage === "/draw-point-3dObject" ||
-      currentPage === "/modify-3dObject" ||
-      currentPage === "/detail-3dObject"
+      currentPage === "/draw-object" ||
+      currentPage === "/fix-object" ||
+      currentPage === "/show-object"
     ) {
       onSendMessageToUnity(true);
     }
@@ -129,9 +129,9 @@ export default function MiniDrawer({ onSendMessageToUnity }) {
 
     // 離開有外嵌 unity 的頁面再重新 reload 很會比較保險
     if (
-      currentPage === "/draw-point-3dObject" ||
-      currentPage === "/modify-3dObject" ||
-      currentPage === "/detail-3dObject"
+      currentPage === "/draw-object" ||
+      currentPage === "/fix-object" ||
+      currentPage === "/show-object"
     ) {
       window.location.reload();
     }
@@ -139,10 +139,10 @@ export default function MiniDrawer({ onSendMessageToUnity }) {
 
   const drawerItem = [
     { name: "首頁", url: "/" },
-    { name: "手臂控制台", url: "/operation-Interface" },
-    { name: "3D模型畫點", url: "/draw-point-3dObject" },
-    { name: "3D模型修改", url: "/modify-3dObject" },
-    { name: "3D模型展示", url: "/detail-3dObject" },
+    { name: "手臂控制台", url: "/robot-control" },
+    { name: "3D模型畫點", url: "/draw-object" },
+    { name: "3D模型修改", url: "/fix-object" },
+    { name: "3D模型展示", url: "/show-object" },
     { name: "設定", url: "/setting" },
   ];
 

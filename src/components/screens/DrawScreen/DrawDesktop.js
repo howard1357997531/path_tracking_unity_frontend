@@ -10,12 +10,12 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import Spinner from "../tool/Spinner";
+import Spinner from "../../../tool/Spinner";
 import { brown } from "@mui/material/colors";
-import "./css/DrawPoint.css";
-import { domain } from "../../env";
+import { domain } from "../../../env";
+import "./css/DrawDesktop.css";
 
-function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
+function DrawDesktop({ sendBoolMessage }) {
   const {
     unityProvider,
     sendMessage,
@@ -257,17 +257,8 @@ function DrawPoint_3dObjectScreen({ sendBoolMessage }) {
       <Button variant="contained" onClick={languageSwitch} sx={{ margin: 2 }}>
         切換語言
       </Button>
-      {/* <Button variant="outline" onClick={getObjUrl}>
-        傳送
-      </Button>
-      <Button variant="outline" onClick={FullClick}>
-        放大
-      </Button>
-      <Button variant="outline" onClick={languageSwitch}>
-        切換語言
-      </Button> */}
     </Container>
   );
 }
 
-export default DrawPoint_3dObjectScreen;
+export default DrawDesktop;

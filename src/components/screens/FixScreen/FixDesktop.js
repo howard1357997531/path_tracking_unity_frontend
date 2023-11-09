@@ -9,12 +9,12 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import Spinner from "../tool/Spinner";
-import { brown } from "@mui/material/colors";
 import { useSelector } from "react-redux";
-import { domain } from "../../env";
+import Spinner from "../../../tool/Spinner";
+import { brown } from "@mui/material/colors";
+import { domain } from "../../../env";
 
-function Modify_3dObjectScreen({ sendBoolMessage }) {
+function FixDesktop({ sendBoolMessage }) {
   const { modify } = useSelector((state) => state.objectSetData);
 
   const {
@@ -275,4 +275,4 @@ function Modify_3dObjectScreen({ sendBoolMessage }) {
   );
 }
 
-export default Modify_3dObjectScreen;
+export default FixDesktop;

@@ -11,6 +11,7 @@ import { Typography } from "@mui/material";
 import Using3DModel from "./Using3DModel";
 import SelectModelTabs from "./SelectModelTabs";
 import TextInput from "./TextInput";
+import { brown } from "@mui/material/colors";
 
 function SelectModel() {
   return (

@@ -55,7 +55,7 @@ function HomeDesktop() {
   };
 
   const existModelHandler = () => {
-    navigate("/operation-Interface");
+    navigate("/robot-control");
   };
 
   const handleMouseEnter = (btn) => {

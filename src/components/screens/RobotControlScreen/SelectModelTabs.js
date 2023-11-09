@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Box from "@mui/material/Box";
 import { Tab, ThemeProvider, createTheme, styled } from "@mui/material";
-import SelectModel from "./SelectModel";
 import { brown, yellow } from "@mui/material/colors";
 import SelectModelTabsType from "./SelectModelTabsType";
 

@@ -1,4 +1,5 @@
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Card, Typography, styled } from "@mui/material";
+import { brown } from "@mui/material/colors";
 
 export const StyleCard = styled(Card)({
   width: "47%",

@@ -2,16 +2,16 @@ import "./App.css";
 import { Box } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DrawerHeader } from "./components/nav/DrawerHeader";
-import MiniDrawer from "./components/nav/Nav_plus_Sidebar";
+import MiniDrawer from "./components/nav/MiniDrawer";
 
-import DrawPoint3dObjectScreen from "./components/screens/DrawPoint_3dObjectScreen";
-import Modify3dObjectScreen from "./components/screens/Modify_3dObjectScreen";
-import Detail3dObjectScreen from "./components/screens/Detail_3dObjectScreen";
-import SettingScreen from "./components/screens/SettingScreen";
 import { useState } from "react";
-import OperationInterface from "./components/screens/OperationInterface";
-import CreateModelScreen from "./components/screens/CreateModelScreen";
-import HomeScreen from "./screen/HomeScreen";
+import CreateModelScreen from "./screens/CreateModelScreen";
+import HomeScreen from "./screens/HomeScreen";
+import RobotControlScreen from "./screens/RobotControlScreen";
+import DrawScreen from "./screens/DrawScreen";
+import FixScreen from "./screens/FixScreen";
+import ShowScreen from "./screens/ShowScreen";
+import SettingScreen from "./components/screens/SettingScreen";
 
 function App() {
   const [sendMessage, setSendMessage] = useState(false);
@@ -29,23 +29,18 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/create-model" element={<CreateModelScreen />} />
+            <Route path="/robot-control" element={<RobotControlScreen />} />
             <Route
-              path="/operation-Interface"
-              element={<OperationInterface />}
+              path="/draw-object"
+              element={<DrawScreen sendBoolMessage={sendMessage} />}
             />
             <Route
-              path="/draw-point-3dObject"
-              element={
-                <DrawPoint3dObjectScreen sendBoolMessage={sendMessage} />
-              }
+              path="/fix-object"
+              element={<FixScreen sendBoolMessage={sendMessage} />}
             />
             <Route
-              path="/modify-3dObject"
-              element={<Modify3dObjectScreen sendBoolMessage={sendMessage} />}
-            />
-            <Route
-              path="/detail-3dObject"
-              element={<Detail3dObjectScreen sendBoolMessage={sendMessage} />}
+              path="/show-object"
+              element={<ShowScreen sendBoolMessage={sendMessage} />}
             />
             <Route path="/setting" element={<SettingScreen />} />
           </Routes>

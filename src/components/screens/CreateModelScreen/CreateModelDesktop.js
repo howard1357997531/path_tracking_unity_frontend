@@ -1,3 +1,16 @@
+import {
+  StyleBox,
+  StyleStepperBox,
+  StyleStepperContentBox,
+  StyleStepper1Typography,
+  StyleStepper1CameraSelectBox,
+  StyleStepper2Title,
+  StyleStepper2CameraBox,
+  StyleStepper2SpinnerBox,
+  StyleStepper2Typography,
+  StyleStepper3SpinnerBox,
+  StyleStepper3Typography,
+} from "../../../styles/CreateModelScreen/CreateModelDesktop";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -5,22 +18,15 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  styled,
-} from "@mui/material";
+import { CircularProgress, FormControl, MenuItem, Select } from "@mui/material";
 import { brown, deepPurple, orange, teal } from "@mui/material/colors";
 import Swal from "sweetalert2";
-import Spinner2 from "../tool/Spinner2";
+import Spinner2 from "../../../tool/Spinner2";
 import { useNavigate } from "react-router-dom";
 
 const steps = ["選擇相機", "開啟相機", "開始掃描"];
 
-export default function CreateModelScreen() {
+export default function CreateModelDesktop() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -75,7 +81,7 @@ export default function CreateModelScreen() {
                 cancelButtonText: "返回首頁",
               }).then((result) => {
                 if (result.isConfirmed) {
-                  navigate("/draw-point-3dObject");
+                  navigate("/draw-object");
                 } else {
                   navigate("/");
                 }
@@ -123,88 +129,6 @@ export default function CreateModelScreen() {
   const handleReset = () => {
     setActiveStep(0);
   };
-
-  const StyleBox = styled(Box)({
-    position: "relative",
-    height: "calc(100vh - 64px)",
-  });
-
-  const StyleStepperBox = styled(Box)({
-    position: "absolute",
-    top: "calc(50% - 32px)",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "60%",
-  });
-
-  const StyleStepperContentBox = styled(Box)({
-    height: "50vh",
-    backgroundColor: "#red",
-  });
-
-  const StyleStepper1Typography = styled(Typography)({
-    position: "absolute",
-    top: "40%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: `${brown[500]}`,
-  });
-
-  const StyleStepper1CameraSelectBox = styled(Box)({
-    position: "absolute",
-    top: "53%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  });
-
-  const StyleStepper2Title = styled(Typography)({
-    position: "absolute",
-    top: "15%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: `${brown[500]}`,
-  });
-
-  const StyleStepper2CameraBox = styled(Box)({
-    position: "absolute",
-    top: "58%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    // backgroundColor: "red",
-    width: "60%",
-    height: "70%",
-    border: `2px solid ${brown[300]}`,
-  });
-
-  const StyleStepper2SpinnerBox = styled(Box)({
-    position: "absolute",
-    top: "47%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  });
-
-  const StyleStepper2Typography = styled(Typography)({
-    position: "absolute",
-    top: "58%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: `${brown[500]}`,
-  });
-
-  const StyleStepper3SpinnerBox = styled(Box)({
-    position: "absolute",
-    top: "55%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  });
-
-  const StyleStepper3Typography = styled(Typography)({
-    position: "absolute",
-    top: "63%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: `${brown[500]}`,
-  });
 
   // select
   const [age, setAge] = React.useState("");
