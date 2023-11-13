@@ -139,53 +139,6 @@ function DrawDesktop({ sendBoolMessage }) {
   //   await new Promise((resolve) => setTimeout(resolve, 100));
   // };
 
-  const languageSwitch = async () => {
-    sendMessage("Translator", "Translate", isEnglish === 1 ? 0 : 1);
-    isEnglish === 1 ? setIsEnglish(0) : setIsEnglish(1);
-  };
-
-  // const objDownload = async (objPath) => {
-  //   const response = await fetch(objPath);
-  //   const dataString = await response.text();
-
-  //   const blob = new Blob([dataString], { type: "text/plain" });
-  //   const url = URL.createObjectURL(blob);
-
-  //   // const link = document.createElement('a');
-  //   // link.href = url;
-  //   // link.download = 'model.obj';
-
-  //   //link.click();
-
-  //   await new Promise((resolve) => setTimeout(resolve, 100));
-  //   sendMessage("Canvas_Import", "LoadPly", url);
-  //   await new Promise((resolve) => setTimeout(resolve, 100));
-  //   URL.revokeObjectURL(url);
-  //   //document.body.removeChild(link);
-  // };
-
-  const FullClick = () => {
-    requestFullscreen(true);
-  };
-
-  // -----------------------------
-  const StyleSpinnerBox = styled(Box)({
-    position: "absolute",
-    top: "45%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    opacity: isload ? 0 : 1,
-    display: isload ? "none" : "block",
-  });
-
-  const StyleTypography = styled(Typography)({
-    position: "absolute",
-    top: "55%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    opacity: isload ? 0 : 1,
-  });
-
   const sentObj = async (objUrl) => {
     const response = await fetch(objUrl);
     const dataString = await response.text();
@@ -198,19 +151,43 @@ function DrawDesktop({ sendBoolMessage }) {
     sendMessage("Canvas_Import", "LoadPly", url);
   };
 
-  const getObjUrl = () => {
-    axios.post(`${domain}/Generate_3D_object/`).then((res) => {
-      sentObj(res.data.obj_file_path);
-    });
-  };
-
   useEffect(() => {
     if (sendBoolMessage) {
       sendMessage("Model", "CloseUnityApp");
     }
   }, [sendBoolMessage, sendMessage]);
 
+  // 以上為 unity 串接部分
+  // 請看以下-----------------------------
+  const StyleSpinnerBox = styled(Box)({
+    position: "absolute",
+    top: "45%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    opacity: isload ? 0 : 1, //使用opacity去切換loading畫面
+    display: isload ? "none" : "block",
+  });
+
+  const StyleTypography = styled(Typography)({
+    position: "absolute",
+    top: "55%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    opacity: isload ? 0 : 1,
+  });
+
   const theme = useTheme();
+
+  // 切換語言
+  const languageSwitch = async () => {
+    sendMessage("Translator", "Translate", isEnglish === 1 ? 0 : 1);
+    isEnglish === 1 ? setIsEnglish(0) : setIsEnglish(1);
+  };
+
+  // 全螢幕
+  const FullClick = () => {
+    requestFullscreen(true);
+  };
 
   return (
     <Container sx={{ p: 3 }}>
@@ -240,10 +217,10 @@ function DrawDesktop({ sendBoolMessage }) {
           <StyleTypography>載入中</StyleTypography>
           <Unity
             style={{
-              width: "960px",
+              width: "960px", //比例一定要 960*600(請等比例縮小放大)
               height: "600px",
               borderRadius: "30px",
-              opacity: isload ? 1 : 0,
+              opacity: isload ? 1 : 0, //使用opacity去切換unity畫面
             }}
             unityProvider={unityProvider}
             tabIndex={1} // 一定要這段才能用 shift 或輸入名字

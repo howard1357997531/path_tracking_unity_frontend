@@ -136,15 +136,6 @@ function FixDesktop({ sendBoolMessage }) {
     sendMessage("Model", "ChangeURL", customURL);
   };
 
-  const languageSwitch = async () => {
-    sendMessage("Translator", "Translate", isEnglish === 1 ? 0 : 1);
-    isEnglish === 1 ? setIsEnglish(0) : setIsEnglish(1);
-  };
-
-  const FullClick = () => {
-    requestFullscreen(true);
-  };
-
   const downloadImage = () => {
     const byteCharacters = atob(saveImage);
     const byteArrays = [...byteCharacters].map((char) => char.charCodeAt(0));
@@ -159,6 +150,8 @@ function FixDesktop({ sendBoolMessage }) {
     document.body.removeChild(downloadLink);
   };
 
+  //<Button variant="outline" onClick={getObjUrl} value="13">物件1</Button>
+
   // const getObjUrl = (e) => {
   //   axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
   //     console.log("getObjUrl: ", e.target.value);
@@ -171,33 +164,10 @@ function FixDesktop({ sendBoolMessage }) {
   //   });
   // };
 
-  // const getObjUrl2 = (e) => {
-  //   axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
-  //     console.log("getObjUrl2: ", e.target.value);
-  //     console.log("getObjUrl2: ", res.data.obj_url);
-  //     setDataID(parseInt(e.target.value));
-  //     setAbleID(true);
-  //     setTimeout(() => {
-  //       sentObj(res.data.obj_url);
-  //     }, 100);
-  //   });
-  // };
-
-  // const getObjUrl3 = (e) => {
-  //   axios.get(`${domain}/Detail_3D_object/${e.target.value}/`).then((res) => {
-  //     console.log("getObjUrl3: ", e.target.value);
-  //     console.log("getObjUrl3: ", res.data.obj_url);
-  //     setDataID(parseInt(e.target.value));
-  //     setAbleID(true);
-  //     setTimeout(() => {
-  //       sentObj(res.data.obj_url);
-  //     }, 100);
-  //   });
-  // };
-
   // 還要傳檔案位置 blob
   const [isload, setIsLoad] = useState(false);
 
+  // 當 unity 完全載入時設地為true
   useEffect(() => {
     if (isLoaded) {
       setIsLoad(true);
@@ -210,6 +180,17 @@ function FixDesktop({ sendBoolMessage }) {
     }
   }, [sendBoolMessage, sendMessage]);
 
+  // 以上為 unity 串接部分
+  // 請看以下-----------------------------
+  const StyleSpinnerBox = styled(Box)({
+    position: "absolute",
+    top: "45%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    opacity: isload ? 0 : 1, //使用opacity去切換loading畫面
+    display: isload ? "none" : "block",
+  });
+
   const StyleTypography = styled(Typography)({
     position: "absolute",
     top: "55%",
@@ -218,14 +199,16 @@ function FixDesktop({ sendBoolMessage }) {
     opacity: isload ? 0 : 1,
   });
 
-  const StyleSpinnerBox = styled(Box)({
-    position: "absolute",
-    top: "45%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    opacity: isload ? 0 : 1,
-    display: isload ? "none" : "block",
-  });
+  // 切換語言
+  const languageSwitch = async () => {
+    sendMessage("Translator", "Translate", isEnglish === 1 ? 0 : 1);
+    isEnglish === 1 ? setIsEnglish(0) : setIsEnglish(1);
+  };
+
+  // 全螢幕
+  const FullClick = () => {
+    requestFullscreen(true);
+  };
 
   return (
     <Container sx={{ p: 3 }}>
@@ -249,22 +232,13 @@ function FixDesktop({ sendBoolMessage }) {
               width: "960px",
               height: "600px",
               borderRadius: "30px",
-              opacity: isload ? 1 : 0,
+              opacity: isload ? 1 : 0, //使用opacity去切換unity畫面
             }}
             unityProvider={unityProvider}
             tabIndex={1}
           />
         </Box>
       </Stack>
-      {/* <Button variant="outline" onClick={getObjUrl} value="13">
-        物件1
-      </Button>
-      <Button variant="outline" onClick={getObjUrl2} value="14">
-        物件2
-      </Button>
-      <Button variant="outline" onClick={getObjUrl3} value="15">
-        物件3
-      </Button> */}
       <Button variant="contained" onClick={FullClick}>
         放大
       </Button>

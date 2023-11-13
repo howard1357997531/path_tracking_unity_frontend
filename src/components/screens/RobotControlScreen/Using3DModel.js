@@ -101,11 +101,11 @@ function Using3DModel() {
   };
 
   const detailModelHandler = () => {
-    navigate("/detail-3dObject");
+    navigate("/show-object");
   };
 
   const modifyModelHandler = () => {
-    navigate("/modify-3dObject");
+    navigate("/fix-object");
   };
   return (
     <>

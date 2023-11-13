@@ -84,7 +84,7 @@ function SelectModelTabsType({ title }) {
     }
     dispatch(objectSetModifyDataAction(id, url));
     localStorage.setItem("route", "/modify-3dObject");
-    navigate("/modify-3dObject");
+    navigate("/fix-object");
   };
 
   const detailModelHandler = (id, objUrl) => {
@@ -99,7 +99,7 @@ function SelectModelTabsType({ title }) {
 
     dispatch(objectSetDetailDataAction(id, url));
     localStorage.setItem("route", "/detail-3dObject");
-    navigate("/detail-3dObject");
+    navigate("/show-object");
   };
 
   const deleteModelHandler = () => {

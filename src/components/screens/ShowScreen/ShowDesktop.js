@@ -18,8 +18,6 @@ function ShowDesktop({ sendBoolMessage }) {
   const { detail } = useSelector((state) => state.objectSetData);
   const customURL = `${domain}/get_object_3d/`;
   const name = "output";
-  const [dataID, setDataID] = useState(detail.id);
-  const [objUrl, setObjUrl] = useState(detail.objUrl);
 
   const {
     unityProvider,
@@ -144,23 +142,14 @@ function ShowDesktop({ sendBoolMessage }) {
 
   const [objPath, setObjPath] = useState("./1_1.ply");
   const idSelect = async () => {
-    console.log(dataID, objUrl);
-    sendMessage("Model", "WhichID", dataID);
+    console.log(detail.id, detail.objUrl);
+    sendMessage("Model", "WhichID", detail.id);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    objDownload(objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
+    objDownload(detail.objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
   };
 
   const urlSwitch = async () => {
     sendMessage("Model", "ChangeURL", customURL);
-  };
-
-  const languageSwitch = async () => {
-    sendMessage("Translator", "Translate", isEnglish === 1 ? 0 : 1);
-    isEnglish === 1 ? setIsEnglish(0) : setIsEnglish(1);
-  };
-
-  const FullClick = () => {
-    requestFullscreen(true);
   };
 
   // useEffect(() => {
@@ -176,50 +165,20 @@ function ShowDesktop({ sendBoolMessage }) {
   //     });
   // }, []);
 
-  const getObjUrl = (e) => {
-    axios
-      .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
-      .then((res) => {
-        console.log(parseInt("react id:", e.target.value));
-        console.log("react obj_url:", res.data.obj_url);
-        setDataID(parseInt(e.target.value));
-        setObjUrl(res.data.obj_url);
-        setAbleID(true);
-        // setTimeout(() => {
-        //   sentObj(res.data.obj_url);
-        // }, 100);
-      });
-  };
-
-  const getObjUrl2 = (e) => {
-    axios
-      .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
-      .then((res) => {
-        console.log("react id 2:", e.target.value);
-        console.log("react obj_url 2:", res.data.obj_url);
-        setDataID(parseInt(e.target.value));
-        setObjUrl(res.data.obj_url);
-        setAbleID(true);
-        // setTimeout(() => {
-        //   sentObj(res.data.obj_url);
-        // }, 100);
-      });
-  };
-
-  const getObjUrl3 = (e) => {
-    axios
-      .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
-      .then((res) => {
-        console.log("react id 3:", e.target.value);
-        console.log("react obj_url 3:", res.data.obj_url);
-        setDataID(parseInt(e.target.value));
-        setObjUrl(res.data.obj_url);
-        setAbleID(true);
-        // setTimeout(() => {
-        //   sentObj(res.data.obj_url);
-        // }, 100);
-      });
-  };
+  // const getObjUrl = (e) => {
+  //   axios
+  //     .get(`http://127.0.0.1:8000/Detail_3D_object/${e.target.value}/`)
+  //     .then((res) => {
+  //       console.log(parseInt("react id:", e.target.value));
+  //       console.log("react obj_url:", res.data.obj_url);
+  //       setDataID(parseInt(e.target.value));
+  //       setObjUrl(res.data.obj_url);
+  //       setAbleID(true);
+  //       // setTimeout(() => {
+  //       //   sentObj(res.data.obj_url);
+  //       // }, 100);
+  //     });
+  // };
 
   // 還要傳檔案位置 blob
   const [isload, setIsLoad] = useState(false);
@@ -236,6 +195,16 @@ function ShowDesktop({ sendBoolMessage }) {
     }
   }, [sendBoolMessage, sendMessage]);
 
+  // 以上為 unity 串接部分
+  // 請看以下-----------------------------
+  const StyleSpinnerBox = styled(Box)({
+    position: "absolute",
+    top: "45%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    opacity: isload ? 0 : 1,
+  });
+
   const StyleTypography = styled(Typography)({
     position: "absolute",
     top: "55%",
@@ -244,13 +213,16 @@ function ShowDesktop({ sendBoolMessage }) {
     opacity: isload ? 0 : 1,
   });
 
-  const StyleSpinnerBox = styled(Box)({
-    position: "absolute",
-    top: "45%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    opacity: isload ? 0 : 1,
-  });
+  // 切換語言
+  const languageSwitch = async () => {
+    sendMessage("Translator", "Translate", isEnglish === 1 ? 0 : 1);
+    isEnglish === 1 ? setIsEnglish(0) : setIsEnglish(1);
+  };
+
+  // 全螢幕
+  const FullClick = () => {
+    requestFullscreen(true);
+  };
 
   return (
     <Container sx={{ p: 3 }}>
