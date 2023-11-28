@@ -3,8 +3,10 @@ import {
   objectDetailReducer,
   objectSetDataReducer,
 } from "./reducers/RobotControlScreenReducer";
+import { navReducer } from "./reducers/navReducer";
 
 const reducer = {
+  nav: navReducer,
   objectDetail: objectDetailReducer,
   objectSetData: objectSetDataReducer,
 };

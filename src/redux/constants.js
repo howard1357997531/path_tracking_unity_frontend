@@ -18,3 +18,7 @@ export const OBJECT_ISPINNED_OR_NOT_FAIL = "OBJECT_ISPINNED_OR_NOT_FAIL";
 // object set data
 export const OBJECT_SET_DETAIL_DATA = "OBJECT_SET_DETAIL_DATA";
 export const OBJECT_SET_MODIFY_DATA = "OBJECT_SET_MODIFY_DATA";
+
+// nav
+export const NAV_inUnityPage = "NAV_inUnityPage";
+export const NAV_leaveUnityPage = "NAV_leaveUnityPage";

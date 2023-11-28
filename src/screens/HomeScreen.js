@@ -7,7 +7,7 @@ function HomeScreen() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
 
-  return matches ? <HomeDesktop /> : <HomeMobile />;
+  return matches ? <HomeDesktop /> : <HomeDesktop />;
 }
 
 export default HomeScreen;

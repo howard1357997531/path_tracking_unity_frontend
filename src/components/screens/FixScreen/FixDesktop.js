@@ -9,12 +9,13 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../../tool/Spinner";
 import { brown } from "@mui/material/colors";
 import { domain } from "../../../env";
+import { NAV_inUnityPage, NAV_leaveUnityPage } from "../../../redux/constants";
 
-function FixDesktop({ sendBoolMessage }) {
+function FixDesktop() {
   const { modify } = useSelector((state) => state.objectSetData);
 
   const {
@@ -174,11 +175,29 @@ function FixDesktop({ sendBoolMessage }) {
     }
   }, [isLoaded, setIsLoad]);
 
+  const { inUnityPage } = useSelector((state) => state.nav);
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (sendBoolMessage) {
+    if (inUnityPage) {
       sendMessage("Model", "CloseUnityApp");
+
+      dispatch({
+        type: NAV_inUnityPage,
+        payload: false,
+      });
+
+      dispatch({
+        type: NAV_leaveUnityPage,
+        payload: true,
+      });
     }
-  }, [sendBoolMessage, sendMessage]);
+  }, [inUnityPage, sendMessage]);
+
+  // useEffect(() => {
+  //   if (sendBoolMessage) {
+  //     sendMessage("Model", "CloseUnityApp");
+  //   }
+  // }, [sendBoolMessage, sendMessage]);
 
   // 以上為 unity 串接部分
   // 請看以下-----------------------------

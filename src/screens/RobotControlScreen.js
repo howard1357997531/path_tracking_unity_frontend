@@ -6,7 +6,7 @@ import RobotControlMobile from "../components/screens/RobotControlScreen/RobotCo
 function RobotControlScreen() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-  return matches ? <RobotControlDesktop /> : <RobotControlMobile />;
+  return matches ? <RobotControlDesktop /> : <RobotControlDesktop />;
 }
 
 export default RobotControlScreen;

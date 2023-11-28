@@ -18,16 +18,11 @@ function App() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
 
-  const [sendMessage, setSendMessage] = useState(false);
-  const onSendMessageToUnity = (msg) => {
-    setSendMessage(msg);
-  };
-
   return (
     <BrowserRouter>
       {matches ? (
         <Box sx={{ display: "flex" }}>
-          <MiniDrawer onSendMessageToUnity={onSendMessageToUnity} />
+          <MiniDrawer />
           <Box component="main" sx={{ flexGrow: 1 }}>
             <DrawerHeader />
 
@@ -35,24 +30,31 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/create-model" element={<CreateModelScreen />} />
               <Route path="/robot-control" element={<RobotControlScreen />} />
-              <Route
-                path="/draw-object"
-                element={<DrawScreen sendBoolMessage={sendMessage} />}
-              />
-              <Route
-                path="/fix-object"
-                element={<FixScreen sendBoolMessage={sendMessage} />}
-              />
-              <Route
-                path="/show-object"
-                element={<ShowScreen sendBoolMessage={sendMessage} />}
-              />
+              <Route path="/draw-object" element={<DrawScreen />} />
+              <Route path="/fix-object" element={<FixScreen />} />
+              <Route path="/show-object" element={<ShowScreen />} />
               <Route path="/setting" element={<SettingScreen />} />
             </Routes>
           </Box>
         </Box>
       ) : (
-        <NavMobile />
+        // <NavMobile />
+        <Box sx={{ display: "flex" }}>
+          <MiniDrawer />
+          <Box component="main" sx={{ flexGrow: 1 }}>
+            <DrawerHeader />
+
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/create-model" element={<CreateModelScreen />} />
+              <Route path="/robot-control" element={<RobotControlScreen />} />
+              <Route path="/draw-object" element={<DrawScreen />} />
+              <Route path="/fix-object" element={<FixScreen />} />
+              <Route path="/show-object" element={<ShowScreen />} />
+              <Route path="/setting" element={<SettingScreen />} />
+            </Routes>
+          </Box>
+        </Box>
       )}
     </BrowserRouter>
   );

@@ -14,8 +14,10 @@ import Spinner from "../../../tool/Spinner";
 import { brown } from "@mui/material/colors";
 import { domain } from "../../../env";
 import "./css/DrawDesktop.css";
+import { useDispatch, useSelector } from "react-redux";
+import { NAV_inUnityPage, NAV_leaveUnityPage } from "../../../redux/constants";
 
-function DrawDesktop({ sendBoolMessage }) {
+function DrawDesktop() {
   const {
     unityProvider,
     sendMessage,
@@ -153,11 +155,23 @@ function DrawDesktop({ sendBoolMessage }) {
     sendMessage("Canvas_Import", "LoadPly", url);
   };
 
+  const { inUnityPage } = useSelector((state) => state.nav);
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (sendBoolMessage) {
+    if (inUnityPage) {
       sendMessage("Model", "CloseUnityApp");
+
+      dispatch({
+        type: NAV_inUnityPage,
+        payload: false,
+      });
+
+      dispatch({
+        type: NAV_leaveUnityPage,
+        payload: true,
+      });
     }
-  }, [sendBoolMessage, sendMessage]);
+  }, [inUnityPage, sendMessage]);
 
   // 以上為 unity 串接部分
   // 請看以下-----------------------------

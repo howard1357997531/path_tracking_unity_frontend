@@ -83,7 +83,7 @@ function SelectModelTabsType({ title }) {
       url = `${domain}/media/gun.ply`;
     }
     dispatch(objectSetModifyDataAction(id, url));
-    localStorage.setItem("route", "/modify-3dObject");
+    localStorage.setItem("route", "/fix-object");
     navigate("/fix-object");
   };
 
@@ -98,7 +98,7 @@ function SelectModelTabsType({ title }) {
     }
 
     dispatch(objectSetDetailDataAction(id, url));
-    localStorage.setItem("route", "/detail-3dObject");
+    localStorage.setItem("route", "/show-object");
     navigate("/show-object");
   };
 

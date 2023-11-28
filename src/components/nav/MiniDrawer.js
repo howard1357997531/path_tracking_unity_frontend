@@ -26,6 +26,8 @@ import { useNavigate } from "react-router-dom";
 import { brown, grey, yellow } from "@mui/material/colors";
 import { Badge, Box, Tooltip } from "@mui/material";
 import AlertList from "./AlertList";
+import { useDispatch, useSelector } from "react-redux";
+import { NAV_inUnityPage, NAV_leaveUnityPage } from "../../redux/constants";
 
 const drawerWidth = 240;
 
@@ -94,8 +96,10 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer({ onSendMessageToUnity }) {
+export default function MiniDrawer() {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const { leaveUnityPage } = useSelector((state) => state.nav);
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -109,9 +113,9 @@ export default function MiniDrawer({ onSendMessageToUnity }) {
   };
 
   const route = (url) => {
-    if (!localStorage.getItem("route")) {
-      localStorage.setItem("route", url);
-    }
+    // if (!localStorage.getItem("route")) {
+    //   localStorage.setItem("route", url);
+    // }
     const currentPage = localStorage.getItem("route");
     localStorage.setItem("route", url);
 
@@ -122,20 +126,36 @@ export default function MiniDrawer({ onSendMessageToUnity }) {
       currentPage === "/fix-object" ||
       currentPage === "/show-object"
     ) {
-      onSendMessageToUnity(true);
+      dispatch({
+        type: NAV_inUnityPage,
+        payload: true,
+      });
+    } else {
+      navigate(url);
     }
-
-    navigate(url);
 
     // 離開有外嵌 unity 的頁面再重新 reload 很會比較保險
-    if (
-      currentPage === "/draw-object" ||
-      currentPage === "/fix-object" ||
-      currentPage === "/show-object"
-    ) {
+    // if (
+    //   currentPage === "/draw-object" ||
+    //   currentPage === "/fix-object" ||
+    //   currentPage === "/show-object"
+    // ) {
+    //   window.location.reload();
+    // }
+  };
+
+  React.useEffect(() => {
+    if (leaveUnityPage) {
+      console.log("asdasdasd");
+      dispatch({
+        type: NAV_leaveUnityPage,
+        payload: false,
+      });
+
+      navigate(localStorage.getItem("route"));
       window.location.reload();
     }
-  };
+  }, [leaveUnityPage]);
 
   const drawerItem = [
     { name: "首頁", url: "/" },
