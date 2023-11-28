@@ -52,6 +52,7 @@ function DrawDesktop({ sendBoolMessage }) {
   // 這段是使用上傳 ply 會觸發的
   const handleModel = useCallback(() => {}, []);
 
+  // 上傳 ply用
   const handleByteConvert = useCallback((byteArray) => {
     console.log(typeof byteArray);
     console.log("byte!");
@@ -59,6 +60,7 @@ function DrawDesktop({ sendBoolMessage }) {
     setIsParseByte(true);
   }, []);
 
+  // 無用到
   const handleNews = useCallback(() => {
     console.log("Upload / Update data from Unity successfully!");
     setIsUpload(true);
