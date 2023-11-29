@@ -8,7 +8,6 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import Spinner from "../../../tool/Spinner";
 import { brown } from "@mui/material/colors";

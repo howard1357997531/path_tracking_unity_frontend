@@ -113,10 +113,9 @@ export default function MiniDrawer() {
   };
 
   const route = (url) => {
-    // if (!localStorage.getItem("route")) {
-    //   localStorage.setItem("route", url);
-    // }
-    const currentPage = localStorage.getItem("route");
+    const currentPage = localStorage.getItem("route")
+      ? localStorage.getItem("route")
+      : "/";
     localStorage.setItem("route", url);
 
     // 離開有外嵌 unity 的頁面要 sendMessage("Model", "CloseUnityApp") 給C#,
@@ -133,20 +132,10 @@ export default function MiniDrawer() {
     } else {
       navigate(url);
     }
-
-    // 離開有外嵌 unity 的頁面再重新 reload 很會比較保險
-    // if (
-    //   currentPage === "/draw-object" ||
-    //   currentPage === "/fix-object" ||
-    //   currentPage === "/show-object"
-    // ) {
-    //   window.location.reload();
-    // }
   };
 
   React.useEffect(() => {
     if (leaveUnityPage) {
-      console.log("asdasdasd");
       dispatch({
         type: NAV_leaveUnityPage,
         payload: false,
