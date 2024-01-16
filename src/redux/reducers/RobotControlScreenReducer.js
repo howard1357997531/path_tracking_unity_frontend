@@ -1,3 +1,4 @@
+import { domain } from "../../env";
 import {
   OBJECT_DETAIL_REQUEST,
   OBJECT_DETAIL_SUCCESS,
@@ -100,8 +101,14 @@ export const objectDetailReducer = (state = { objects: [] }, action) => {
 
 export const objectSetDataReducer = (
   state = {
-    detail: { id: "", objUrl: "" },
-    modify: { id: "", objUrl: "" },
+    detail: {
+      id: 25,
+      objUrl: `${domain}/media/tool.ply`,
+    },
+    modify: {
+      id: 25,
+      objUrl: `${domain}/media/tool.ply`,
+    },
   },
   action
 ) => {

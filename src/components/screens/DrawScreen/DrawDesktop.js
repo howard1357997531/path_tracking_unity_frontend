@@ -15,6 +15,7 @@ import { domain } from "../../../env";
 import "./css/DrawDesktop.css";
 import { useDispatch, useSelector } from "react-redux";
 import { NAV_inUnityPage, NAV_leaveUnityPage } from "../../../redux/constants";
+import axios from "axios";
 
 function DrawDesktop() {
   const {
@@ -40,6 +41,7 @@ function DrawDesktop() {
   // const [objPath, setObjPath] = useState();
   const [isload, setIsLoad] = useState(false);
   const [isAbleURL, setAbleURL] = useState(false);
+  const [isAbleID, setAbleID] = useState(false);
   const objPath = "../../backend/bun_zipper.obj";
 
   const urlSwitch = async () => {
@@ -66,6 +68,16 @@ function DrawDesktop() {
     console.log("Upload / Update data from Unity successfully!");
     setIsUpload(true);
   }, []);
+
+  const handleID = useCallback(() => {
+    setAbleID(true);
+  }, []);
+  useEffect(() => {
+    addEventListener("AbleGetData", handleID);
+    return () => {
+      removeEventListener("AbleGetData", handleID);
+    };
+  }, [addEventListener, removeEventListener, handleID]);
 
   // 偵測 unity 調用 react function 的行為
   // 一進來偵測 啟動 unity 那邊的function(SendPlyData)
@@ -106,11 +118,49 @@ function DrawDesktop() {
       urlSwitch();
       setAbleURL(false);
     }
+    if (isAbleID) {
+      idSelect();
+      setAbleID(false);
+    }
     if (isParseByte) {
       PLYLink(plyByte);
       setIsParseByte(false);
     }
-  }, [isLoaded, isAbleURL, isParseByte]);
+  }, [isLoaded, isAbleID, isAbleURL, isParseByte]);
+
+  // 選中的目標讀取
+  const idSelect = async () => {
+    // 這裡的存取objUrl要改為模型清單的資料夾
+    const obj_url = `${domain}/media/camera_data/24/output.ply`;
+    sendMessage("Canvas_Import", "LoadPly", obj_url);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    objDownload(obj_url); //告訴 unity 重新載入模型和點(這段不能刪)
+  };
+
+  //讀取檔案
+  const objDownload = async (objPath) => {
+    try {
+      const response = await axios.get(objPath, {
+        responseType: "arraybuffer",
+      });
+      console.log(response.data);
+      const blob = new Blob([response.data], {
+        type: "application/octet-stream",
+      });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "model.ply";
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      sendMessage("Canvas", "LoadPly", url);
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading PLY file:", error);
+    }
+  };
 
   // isParse=true 把剛剛接收到unity的ply string 轉成 ply檔案(賦予一個url給他)
   const PLYLink = (plyData) => {

@@ -21,6 +21,7 @@ export const objectDeatilAction = () => async (dispatch) => {
     });
 
     const { data } = await axios.get(`${domain}/get_object_3d/`);
+    console.log(data);
 
     dispatch({
       type: OBJECT_DETAIL_SUCCESS,
@@ -147,13 +148,13 @@ export const objectSetDetailDataAction = (id, objUrl) => (dispatch) => {
       },
     });
 
-    localStorage.setItem(
-      "objectDetailData",
-      JSON.stringify({
-        id: id,
-        objUrl: objUrl,
-      })
-    );
+    // localStorage.setItem(
+    //   "objectDetailData",
+    //   JSON.stringify({
+    //     id: id,
+    //     objUrl: objUrl,
+    //   })
+    // );
   } catch (error) {}
 };
 
@@ -167,12 +168,12 @@ export const objectSetModifyDataAction = (id, objUrl) => (dispatch) => {
       },
     });
 
-    localStorage.setItem(
-      "objectModifyData",
-      JSON.stringify({
-        id: id,
-        objUrl: objUrl,
-      })
-    );
+    // localStorage.setItem(
+    //   "objectModifyData",
+    //   JSON.stringify({
+    //     id: id,
+    //     objUrl: objUrl,
+    //   })
+    // );
   } catch (error) {}
 };

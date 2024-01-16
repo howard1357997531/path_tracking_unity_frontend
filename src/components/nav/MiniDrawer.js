@@ -23,11 +23,12 @@ import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import HistoryIcon from "@mui/icons-material/History";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavigate } from "react-router-dom";
-import { brown, grey, yellow } from "@mui/material/colors";
+import { brown, deepPurple, grey, purple, yellow } from "@mui/material/colors";
 import { Badge, Box, Tooltip } from "@mui/material";
 import AlertList from "./AlertList";
 import { useDispatch, useSelector } from "react-redux";
 import { NAV_inUnityPage, NAV_leaveUnityPage } from "../../redux/constants";
+import Swal from "sweetalert2";
 
 const drawerWidth = 240;
 
@@ -116,7 +117,10 @@ export default function MiniDrawer() {
     const currentPage = localStorage.getItem("route")
       ? localStorage.getItem("route")
       : "/";
-    localStorage.setItem("route", url);
+
+    if (currentPage === url) {
+      return;
+    }
 
     // 離開有外嵌 unity 的頁面要 sendMessage("Model", "CloseUnityApp") 給C#,
     // 不然很容易會發生問題
@@ -125,11 +129,29 @@ export default function MiniDrawer() {
       currentPage === "/fix-object" ||
       currentPage === "/show-object"
     ) {
-      dispatch({
-        type: NAV_inUnityPage,
-        payload: true,
+      Swal.fire({
+        title: "物件尚未儲存",
+        text: "確定離開 ?",
+        icon: "warning",
+        background: "#a1887f",
+        showCancelButton: true,
+        confirmButtonColor: "#7e57c2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch({
+            type: NAV_inUnityPage,
+            payload: true,
+          });
+          localStorage.setItem("route", url);
+        } else {
+          return;
+        }
       });
     } else {
+      localStorage.setItem("route", url);
       navigate(url);
     }
   };
@@ -142,7 +164,7 @@ export default function MiniDrawer() {
       });
 
       navigate(localStorage.getItem("route"));
-      window.location.reload();
+      // window.location.reload();
     }
   }, [leaveUnityPage]);
 

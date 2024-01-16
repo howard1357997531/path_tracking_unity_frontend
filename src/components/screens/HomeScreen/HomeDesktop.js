@@ -44,6 +44,10 @@ function HomeDesktop() {
     }
   }, [btnEffect]);
 
+  useEffect(() => {
+    localStorage.setItem("route", "/");
+  }, []);
+
   const createModelHandler = () => {
     // setBtnEffect(true);
     // setTimeout(() => {

@@ -25,6 +25,8 @@ import {
   StyleDetailSmallBox,
   StyleDetailTypography,
 } from "../../../styles/RobotControlScreen/RobotField";
+import { domain } from "../../../env";
+import axios from "axios";
 
 function RobotField() {
   const navigate = useNavigate();
@@ -98,9 +100,9 @@ function RobotField() {
       time: dateDetail,
     });
     setDetailText(detailText);
-    // axios.post("http://127.0.0.1:8000/test/").then((res) => {
-    //   console.log(res);
-    // });
+    axios.post(`${domain}/execute_robot/`, { id: 36 }).then((res) => {
+      console.log(res);
+    });
   };
 
   const stopRobotHandler = () => {

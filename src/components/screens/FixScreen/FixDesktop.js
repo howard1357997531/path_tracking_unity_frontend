@@ -126,6 +126,7 @@ function FixDesktop() {
   }, [isDownload, isAbleID, isAbleURL]);
 
   const [objPath, setObjPath] = useState("./1_1.ply");
+
   const idSelect = async () => {
     console.log(modify.id, modify.objUrl);
     sendMessage("Model", "WhichID", modify.id);
