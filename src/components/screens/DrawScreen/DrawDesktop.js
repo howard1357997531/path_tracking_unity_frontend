@@ -31,7 +31,8 @@ function DrawDesktop() {
     frameworkUrl: "Build/DrawScene_0801.framework.js",
     codeUrl: "Build/DrawScene_0801.wasm",
   });
-  const customURL = `${domain}/get_object_3d/`;
+  // const customURL = `${domain}/get_object_3d/`;
+  const customURL = `${domain}/save_draw_object/`;
 
   // 上傳成功時 isUplaod = true
   const [isUpload, setIsUpload] = useState(false);
@@ -42,7 +43,8 @@ function DrawDesktop() {
   const [isload, setIsLoad] = useState(false);
   const [isAbleURL, setAbleURL] = useState(false);
   const [isAbleID, setAbleID] = useState(false);
-  const objPath = "../../backend/bun_zipper.obj";
+
+  const { initial } = useSelector((state) => state.objectSetData);
 
   const urlSwitch = async () => {
     sendMessage("Model", "ChangeURL", customURL);
@@ -131,8 +133,11 @@ function DrawDesktop() {
   // 選中的目標讀取
   const idSelect = async () => {
     // 這裡的存取objUrl要改為模型清單的資料夾
-    const obj_url = `${domain}/media/camera_data/24/output.ply`;
+    var initial = 63;
+    const obj_url = `${domain}/media/camera_data/${initial}/output.ply`;
+    // const obj_url = `${domain}/media/tool.ply`;
     sendMessage("Canvas_Import", "LoadPly", obj_url);
+    sendMessage("Canvas_Import", "LoadID", initial);
     await new Promise((resolve) => setTimeout(resolve, 100));
     objDownload(obj_url); //告訴 unity 重新載入模型和點(這段不能刪)
   };

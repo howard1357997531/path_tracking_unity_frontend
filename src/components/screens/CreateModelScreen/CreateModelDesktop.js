@@ -23,11 +23,16 @@ import { brown, deepPurple, orange, teal } from "@mui/material/colors";
 import Swal from "sweetalert2";
 import Spinner2 from "../../../tool/Spinner2";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { domain } from "../../../env";
+import { useDispatch } from "react-redux";
+import { OBJECT_SET_INITIAL_DATA } from "../../../redux/constants";
 
 const steps = ["選擇相機", "開啟相機", "開始掃描"];
 
 export default function CreateModelDesktop() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -39,9 +44,49 @@ export default function CreateModelDesktop() {
     return skipped.has(step);
   };
 
+  const [loading, setLoading] = React.useState(true);
+  const [image, setImage] = React.useState(null);
+
+  const screenshot = () => {
+    setLoading(true);
+    axios
+      .post(`${domain}/screen_shot/`)
+      .then((res) => {
+        if (res.data.state === "ok") {
+          setImage(res.data.image);
+        } else {
+          setImage(null);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
+  };
+
   const handleNext = (step) => {
-    console.log(step);
-    if (step === 2) {
+    if (step === 1) {
+      let newSkipped = skipped;
+      if (isStepSkipped(activeStep)) {
+        newSkipped = new Set(newSkipped.values());
+        newSkipped.delete(activeStep);
+      }
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setSkipped(newSkipped);
+      axios
+        .post(`${domain}/open_camera/`)
+        .then((res) => {
+          if (res.data.state !== "error") {
+            setLoading(false);
+            if (res.data.state === "ok") {
+              setImage(res.data.image);
+            }
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    } else if (step === 2) {
       Swal.fire({
         title: "請再次確認物體是否放好",
         icon: "warning",
@@ -62,7 +107,12 @@ export default function CreateModelDesktop() {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
           setSkipped(newSkipped);
 
-          setTimeout(() => {
+          axios.post(`${domain}/save_ply/`).then((res) => {
+            console.log(res.data);
+            dispatch({
+              type: OBJECT_SET_INITIAL_DATA,
+              payload: res.data.obj_data.id,
+            });
             Swal.fire({
               title: "掃描成功",
               icon: "success",
@@ -87,7 +137,7 @@ export default function CreateModelDesktop() {
                 }
               });
             });
-          }, 3000);
+          });
         } else {
           return;
         }
@@ -101,9 +151,6 @@ export default function CreateModelDesktop() {
 
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
-    }
-
-    if (step === 2) {
     }
   };
 
@@ -203,11 +250,39 @@ export default function CreateModelDesktop() {
                   <StyleStepper2Title variant="h5">
                     請確認物體是否擺放正確
                   </StyleStepper2Title>
+
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      position: "absolute",
+                      right: 0,
+                      bottom: "15%",
+                      width: "92px",
+                      height: "43px",
+                      fontSize: "20px",
+                    }}
+                    onClick={screenshot}
+                  >
+                    重拍
+                  </Button>
+
                   <StyleStepper2CameraBox>
-                    <StyleStepper2SpinnerBox>
-                      <CircularProgress sx={{ color: `${brown[300]}` }} />
-                    </StyleStepper2SpinnerBox>
-                    <StyleStepper2Typography>開啟中</StyleStepper2Typography>
+                    {loading ? (
+                      <>
+                        <StyleStepper2SpinnerBox>
+                          <CircularProgress sx={{ color: `${brown[300]}` }} />
+                        </StyleStepper2SpinnerBox>
+                        <StyleStepper2Typography>
+                          拍攝中
+                        </StyleStepper2Typography>
+                      </>
+                    ) : (
+                      <img
+                        src={`${domain}/${image}`}
+                        alt={`${domain}/${image}`}
+                        style={{ width: "100%", height: "100%" }}
+                      />
+                    )}
                   </StyleStepper2CameraBox>
                 </>
               )}

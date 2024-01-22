@@ -29,11 +29,13 @@ import {
   objectRemoveSelectModelAction,
 } from "../../../redux/actions/RobotControlScreenAction.js";
 import { brown } from "@mui/material/colors";
+import { OBJECT_SET_SELECT_DATA } from "../../../redux/constants.js";
 
 function Using3DModel() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, objects } = useSelector((state) => state.objectDetail);
+  const { select } = useSelector((state) => state.objectSetData);
   // const [objectDetail, setObjectDetail] = useState(objects);
   const [selectObject, setSelectObject] = useState({});
   const [hasSelectObject, setHasSelectObject] = useState(false);
@@ -68,12 +70,18 @@ function Using3DModel() {
   }, [dispatch]);
 
   useEffect(() => {
-    const hasSelect = objects.filter((item) => {
-      return item.is_selected === true;
-    });
-    setSelectObject(hasSelect[0]);
-    setHasSelectObject(hasSelect.length === 0 ? false : true);
-  }, [objects]);
+    if (!loading) {
+      if (select) {
+        const hasSelect = objects.filter((item) => {
+          return item.id === select;
+        });
+        setSelectObject(hasSelect[0]);
+        setHasSelectObject(true);
+      } else {
+        setHasSelectObject(false);
+      }
+    }
+  }, [loading, objects]);
 
   // Dialog
   const selectObjectHandler = () => {

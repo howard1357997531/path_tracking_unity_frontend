@@ -27,9 +27,11 @@ import {
 } from "../../../styles/RobotControlScreen/RobotField";
 import { domain } from "../../../env";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function RobotField() {
   const navigate = useNavigate();
+  const { select } = useSelector((state) => state.objectSetData);
   const date = new Date();
   const dateDetail = `${date.getFullYear()}/${
     date.getMonth() + 1
@@ -92,6 +94,17 @@ function RobotField() {
   };
 
   const activateRobotHandler = () => {
+    if (!select) {
+      Swal.fire({
+        icon: "warning",
+        title: "尚未選擇模型",
+        width: 300,
+        background: `${brown[300]}`,
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      return;
+    }
     setInitialStatus(false);
     setActivateBtn(true);
     setStopBtn(false);
@@ -100,8 +113,8 @@ function RobotField() {
       time: dateDetail,
     });
     setDetailText(detailText);
-    axios.post(`${domain}/execute_robot/`, { id: 36 }).then((res) => {
-      console.log(res);
+    axios.post(`${domain}/execute_robot/`, { id: select }).then((res) => {
+      console.log(res.data);
     });
   };
 

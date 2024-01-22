@@ -11,6 +11,8 @@ import {
   OBJECT_ISPINNED_OR_NOT_FAIL,
   OBJECT_SET_DETAIL_DATA,
   OBJECT_SET_MODIFY_DATA,
+  OBJECT_SET_SELECT_DATA,
+  OBJECT_SET_INITIAL_DATA,
 } from "../constants";
 
 export const objectDetailReducer = (state = { objects: [] }, action) => {
@@ -101,6 +103,8 @@ export const objectDetailReducer = (state = { objects: [] }, action) => {
 
 export const objectSetDataReducer = (
   state = {
+    initial: null,
+    select: null,
     detail: {
       id: 25,
       objUrl: `${domain}/media/tool.ply`,
@@ -113,6 +117,12 @@ export const objectSetDataReducer = (
   action
 ) => {
   switch (action.type) {
+    case OBJECT_SET_INITIAL_DATA:
+      return { ...state, initial: action.payload };
+
+    case OBJECT_SET_SELECT_DATA:
+      return { ...state, select: action.payload };
+
     case OBJECT_SET_DETAIL_DATA:
       return {
         ...state,
