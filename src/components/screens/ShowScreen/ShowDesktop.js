@@ -16,8 +16,11 @@ import { domain } from "../../../env";
 import { NAV_inUnityPage, NAV_leaveUnityPage } from "../../../redux/constants";
 
 function ShowDesktop() {
-  const { detail } = useSelector((state) => state.objectSetData);
-  const customURL = `${domain}/get_object_3d/`;
+  const { detail, initial, select } = useSelector(
+    (state) => state.objectSetData
+  );
+  // const customURL = `${domain}/get_object_3d/`;
+  const customURL = `${domain}/get_single_draw_object/`;
   const name = "output";
 
   const {
@@ -143,10 +146,13 @@ function ShowDesktop() {
 
   const [objPath, setObjPath] = useState("./1_1.ply");
   const idSelect = async () => {
-    console.log(detail.id, detail.objUrl);
-    sendMessage("Model", "WhichID", detail.id);
+    const initialData = initial ? initial : 1;
+    const selectData = select ? select : 41;
+    const obj_url = `${domain}/media/camera_data/${initialData}/output.ply`;
+    sendMessage("Model", "WhichID", selectData);
+    sendMessage("Canvas", "LoadID", selectData);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    objDownload(detail.objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
+    objDownload(obj_url); //告訴 unity 重新載入模型和點(這段不能刪)
   };
 
   const urlSwitch = async () => {

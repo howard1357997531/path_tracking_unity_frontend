@@ -36,6 +36,7 @@ function FixDesktop() {
   const [isDownload, setIsDownload] = useState(false);
   const name = "output";
   const customURL = `${domain}/Detail_3D_object/`;
+  // const customURL = `${domain}/get_single_draw_object/`;
   const [isAbleID, setAbleID] = useState(false);
   const [isAbleURL, setAbleURL] = useState(false);
   const [isEnglish, setIsEnglish] = useState(1);

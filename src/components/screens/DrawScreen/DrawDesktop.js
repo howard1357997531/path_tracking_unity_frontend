@@ -133,11 +133,11 @@ function DrawDesktop() {
   // 選中的目標讀取
   const idSelect = async () => {
     // 這裡的存取objUrl要改為模型清單的資料夾
-    var initial = 63;
-    const obj_url = `${domain}/media/camera_data/${initial}/output.ply`;
+    const initialData = initial ? initial : 1;
+    const obj_url = `${domain}/media/camera_data/${initialData}/output.ply`;
     // const obj_url = `${domain}/media/tool.ply`;
     sendMessage("Canvas_Import", "LoadPly", obj_url);
-    sendMessage("Canvas_Import", "LoadID", initial);
+    sendMessage("Canvas_Import", "LoadID", initialData);
     await new Promise((resolve) => setTimeout(resolve, 100));
     objDownload(obj_url); //告訴 unity 重新載入模型和點(這段不能刪)
   };

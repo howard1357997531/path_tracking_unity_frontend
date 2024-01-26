@@ -42,6 +42,7 @@ function SelectModelTabsType({ title }) {
   const dispatch = useDispatch();
   const { loading, objects } = useSelector((state) => state.objectDetail);
   const [dialogId, setDialogId] = useState("");
+  const [dialogInitialId, setDialogInitialId] = useState("");
 
   const AddPinHandler = (id) => {
     dispatch(objectAddPinAction(id));
@@ -69,35 +70,18 @@ function SelectModelTabsType({ title }) {
   };
 
   const selectModelHandler = () => {
-    dispatch(objectSelectModelAction(dialogId));
+    dispatch(objectSelectModelAction(dialogId, dialogInitialId));
     setOpen(false);
   };
 
-  const modifyModelHandler = (id, objUrl) => {
-    let url = "";
-    if (id === 23) {
-      url = `${domain}/media/hat.ply`;
-    } else if (id === 25) {
-      url = `${domain}/media/tool.ply`;
-    } else {
-      url = `${domain}/media/gun.ply`;
-    }
-    dispatch(objectSetModifyDataAction(id, url));
+  const modifyModelHandler = () => {
+    dispatch(objectSetModifyDataAction(dialogId, dialogInitialId));
     localStorage.setItem("route", "/fix-object");
     navigate("/fix-object");
   };
 
-  const detailModelHandler = (id, objUrl) => {
-    let url = "";
-    if (id === 23) {
-      url = `${domain}/media/hat.ply`;
-    } else if (id === 25) {
-      url = `${domain}/media/tool.ply`;
-    } else {
-      url = `${domain}/media/gun.ply`;
-    }
-
-    dispatch(objectSetDetailDataAction(id, url));
+  const detailModelHandler = () => {
+    dispatch(objectSetDetailDataAction(dialogId, dialogInitialId));
     localStorage.setItem("route", "/show-object");
     navigate("/show-object");
   };
@@ -129,8 +113,9 @@ function SelectModelTabsType({ title }) {
   };
 
   // Dialog
-  const handleClickOpen = (id) => {
+  const handleClickOpen = (id, initialId) => {
     setDialogId(id);
+    setDialogInitialId(initialId);
     setOpen(true);
   };
 
@@ -165,7 +150,9 @@ function SelectModelTabsType({ title }) {
 
               <StyleIconBox flex={1}>
                 <StyleSettingsApplicationsOutlinedIcon
-                  onClick={() => handleClickOpen(object.id)}
+                  onClick={() =>
+                    handleClickOpen(object.id, object.initial_object_id)
+                  }
                 />
                 {object.is_pinned ? (
                   <StylePushPinRoundedIcon
@@ -201,7 +188,9 @@ function SelectModelTabsType({ title }) {
 
             <StyleIconBox flex={1}>
               <StyleSettingsApplicationsOutlinedIcon
-                onClick={() => handleClickOpen(object.id)}
+                onClick={() =>
+                  handleClickOpen(object.id, object.initial_object_id)
+                }
               />
               {object.is_pinned ? (
                 <StylePushPinRoundedIcon
@@ -231,7 +220,7 @@ function SelectModelTabsType({ title }) {
 
             <StyleDialogButton2
               variant="contained"
-              onClick={() => modifyModelHandler(dialogId, "http123")}
+              onClick={modifyModelHandler}
             >
               修改模型
             </StyleDialogButton2>
@@ -239,7 +228,7 @@ function SelectModelTabsType({ title }) {
           <StyleDialogStack direction="row" columnGap={3}>
             <StyleDialogButton3
               variant="contained"
-              onClick={() => detailModelHandler(dialogId, "http123")}
+              onClick={detailModelHandler}
             >
               詳細資料
             </StyleDialogButton3>

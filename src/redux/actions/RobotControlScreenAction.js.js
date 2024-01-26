@@ -11,6 +11,7 @@ import {
   OBJECT_SET_DETAIL_DATA,
   OBJECT_SET_MODIFY_DATA,
   OBJECT_SET_SELECT_DATA,
+  OBJECT_SET_INITIAL_DATA,
 } from "../constants";
 import axios from "axios";
 import { domain } from "../../env";
@@ -47,7 +48,7 @@ export const objectDeatilAction = () => async (dispatch) => {
   }
 };
 
-export const objectSelectModelAction = (id) => async (dispatch) => {
+export const objectSelectModelAction = (id, initialId) => async (dispatch) => {
   try {
     dispatch({
       type: OBJECT_SELECT_OR_REMOVE_REQUEST,
@@ -64,6 +65,11 @@ export const objectSelectModelAction = (id) => async (dispatch) => {
     dispatch({
       type: OBJECT_SELECT_OR_REMOVE_SUCCESS,
       payload: data,
+    });
+
+    dispatch({
+      type: OBJECT_SET_INITIAL_DATA,
+      payload: initialId,
     });
 
     dispatch({
@@ -173,14 +179,24 @@ export const objectRemovePinAction = (id) => async (dispatch) => {
   }
 };
 
-export const objectSetDetailDataAction = (id, objUrl) => (dispatch) => {
+export const objectSetDetailDataAction = (id, initialId) => (dispatch) => {
   try {
+    // dispatch({
+    //   type: OBJECT_SET_DETAIL_DATA,
+    //   payload: {
+    //     id: id,
+    //     objUrl: objUrl,
+    //   },
+    // });
+
     dispatch({
-      type: OBJECT_SET_DETAIL_DATA,
-      payload: {
-        id: id,
-        objUrl: objUrl,
-      },
+      type: OBJECT_SET_INITIAL_DATA,
+      payload: initialId,
+    });
+
+    dispatch({
+      type: OBJECT_SET_SELECT_DATA,
+      payload: id,
     });
 
     // localStorage.setItem(
@@ -193,14 +209,24 @@ export const objectSetDetailDataAction = (id, objUrl) => (dispatch) => {
   } catch (error) {}
 };
 
-export const objectSetModifyDataAction = (id, objUrl) => (dispatch) => {
+export const objectSetModifyDataAction = (id, initialId) => (dispatch) => {
   try {
+    // dispatch({
+    //   type: OBJECT_SET_MODIFY_DATA,
+    //   payload: {
+    //     id: id,
+    //     objUrl: objUrl,
+    //   },
+    // });
+
     dispatch({
-      type: OBJECT_SET_MODIFY_DATA,
-      payload: {
-        id: id,
-        objUrl: objUrl,
-      },
+      type: OBJECT_SET_INITIAL_DATA,
+      payload: initialId,
+    });
+
+    dispatch({
+      type: OBJECT_SET_SELECT_DATA,
+      payload: id,
     });
 
     // localStorage.setItem(
