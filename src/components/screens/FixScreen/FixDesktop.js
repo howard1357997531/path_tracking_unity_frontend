@@ -16,7 +16,9 @@ import { domain } from "../../../env";
 import { NAV_inUnityPage, NAV_leaveUnityPage } from "../../../redux/constants";
 
 function FixDesktop() {
-  const { modify } = useSelector((state) => state.objectSetData);
+  const { modify, initial, select } = useSelector(
+    (state) => state.objectSetData
+  );
 
   const {
     unityProvider,
@@ -35,8 +37,8 @@ function FixDesktop() {
   const [saveImage, setSaveImage] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const name = "output";
-  const customURL = `${domain}/Detail_3D_object/`;
-  // const customURL = `${domain}/get_single_draw_object/`;
+  // const customURL = `${domain}/Detail_3D_object/`;
+  const customURL = `${domain}/get_single_draw_object/`;
   const [isAbleID, setAbleID] = useState(false);
   const [isAbleURL, setAbleURL] = useState(false);
   const [isEnglish, setIsEnglish] = useState(1);
@@ -130,9 +132,13 @@ function FixDesktop() {
 
   const idSelect = async () => {
     console.log(modify.id, modify.objUrl);
-    sendMessage("Model", "WhichID", modify.id);
+    const initialData = initial ? initial : 1;
+    const selectData = select ? select : 41;
+    const obj_url = `${domain}/media/camera_data/${initialData}/output.ply`;
+    sendMessage("Model", "WhichID", selectData);
+    sendMessage("Canvas", "LoadID", selectData);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    objDownload(modify.objUrl); //告訴 unity 重新載入模型和點(這段不能刪)
+    objDownload(obj_url); //告訴 unity 重新載入模型和點(這段不能刪)
   };
 
   const urlSwitch = async () => {

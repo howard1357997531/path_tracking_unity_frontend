@@ -4,9 +4,15 @@ import {
   objectSetDataReducer,
 } from "./reducers/RobotControlScreenReducer";
 import { navReducer } from "./reducers/navReducer";
+import {
+  initialObjectReducer,
+  initialObjectSetDataReducer,
+} from "./reducers/InitialObjectScreenReducer";
 
 const reducer = {
   nav: navReducer,
+  initialObject: initialObjectReducer,
+  initialObjectSetData: initialObjectSetDataReducer,
   objectDetail: objectDetailReducer,
   objectSetData: objectSetDataReducer,
 };

@@ -19,16 +19,17 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CircularProgress, FormControl, MenuItem, Select } from "@mui/material";
-import { brown, deepPurple, orange, teal } from "@mui/material/colors";
+import { brown, deepPurple, grey, orange, teal } from "@mui/material/colors";
 import Swal from "sweetalert2";
 import Spinner2 from "../../../tool/Spinner2";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { domain } from "../../../env";
 import { useDispatch } from "react-redux";
-import { OBJECT_SET_INITIAL_DATA } from "../../../redux/constants";
+import { INITIAL_OBJECT_SET_INITIAL_DATA } from "../../../redux/constants";
+import "./css/CreateModelDesktop.css";
 
-const steps = ["選擇相機", "開啟相機", "開始掃描"];
+const steps = ["選擇相機", "掃描物件", "完成"];
 
 export default function CreateModelDesktop() {
   const navigate = useNavigate();
@@ -87,15 +88,38 @@ export default function CreateModelDesktop() {
           setLoading(false);
         });
     } else if (step === 2) {
+      // delete
       Swal.fire({
-        title: "請再次確認物體是否放好",
-        icon: "warning",
+        title: "請輸入物件名稱",
+        input: "text",
+        background: grey[800],
+        color: "#fff",
+        inputAttributes: {
+          autocapitalize: "off",
+        },
         showCancelButton: true,
-        background: `${brown[300]}`,
-        confirmButtonColor: `${orange[300]}`,
-        cancelButtonColor: `${deepPurple[400]}`,
-        confirmButtonText: "確認",
+        confirmButtonText: "送出",
         cancelButtonText: "返回",
+        cancelButtonColor: grey[600],
+        showLoaderOnConfirm: true,
+        preConfirm: async (inputText) => {
+          if (inputText === "") {
+            return Swal.showValidationMessage(`請輸入名稱`);
+          }
+          try {
+            const { data } = await axios.post(`${domain}/save_ply/`, {
+              inputText,
+            });
+
+            dispatch({
+              type: INITIAL_OBJECT_SET_INITIAL_DATA,
+              payload: data.obj_data.id,
+            });
+          } catch (error) {
+            Swal.showValidationMessage(`${error.response.data.error_msg}`);
+          }
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
       }).then((result) => {
         if (result.isConfirmed) {
           let newSkipped = skipped;
@@ -106,40 +130,6 @@ export default function CreateModelDesktop() {
 
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
           setSkipped(newSkipped);
-
-          axios.post(`${domain}/save_ply/`).then((res) => {
-            console.log(res.data);
-            dispatch({
-              type: OBJECT_SET_INITIAL_DATA,
-              payload: res.data.obj_data.id,
-            });
-            Swal.fire({
-              title: "掃描成功",
-              icon: "success",
-              background: `${brown[300]}`,
-              confirmButtonColor: `${deepPurple[300]}`,
-              confirmButtonText: "ok",
-            }).then(() => {
-              Swal.fire({
-                title: "使否前往繪製3D圖?",
-                icon: "question",
-                showCancelButton: true,
-                background: `${brown[300]}`,
-                confirmButtonColor: `${teal[400]}`,
-                cancelButtonColor: `${deepPurple[400]}`,
-                confirmButtonText: "前往繪圖",
-                cancelButtonText: "返回首頁",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  navigate("/draw-object");
-                } else {
-                  navigate("/");
-                }
-              });
-            });
-          });
-        } else {
-          return;
         }
       });
     } else {
@@ -257,9 +247,10 @@ export default function CreateModelDesktop() {
                       position: "absolute",
                       right: 0,
                       bottom: "15%",
-                      width: "92px",
-                      height: "43px",
+                      // width: "92px",
+                      // height: "43px",
                       fontSize: "20px",
+                      padding: "5px 15px",
                     }}
                     onClick={screenshot}
                   >
@@ -289,10 +280,33 @@ export default function CreateModelDesktop() {
               {activeStep + 1 === 3 && (
                 <>
                   <StyleStepper3SpinnerBox>
-                    <Spinner2 />
+                    {/* <Spinner2 /> */}
+                    掃描成功
                   </StyleStepper3SpinnerBox>
                   <StyleStepper3Typography variant="h6">
-                    掃描中
+                    是否前往繪圖 ?
+                    <Button
+                      disableElevation
+                      variant="contained"
+                      sx={{ marginLeft: "15px" }}
+                      onClick={() => navigate("/draw-object")}
+                    >
+                      前往繪圖
+                    </Button>
+                    <Button
+                      disableElevation
+                      variant="contained"
+                      sx={{
+                        marginLeft: "15px",
+                        backgroundColor: brown[300],
+                        "&:hover": {
+                          backgroundColor: brown[400],
+                        },
+                      }}
+                      onClick={() => navigate("/")}
+                    >
+                      返回首頁
+                    </Button>
                   </StyleStepper3Typography>
                 </>
               )}
@@ -333,10 +347,16 @@ export default function CreateModelDesktop() {
                 }}
                 onClick={() => handleNext(activeStep + 1)}
               >
-                {activeStep === steps.length - 1 ? (
+                {/* {activeStep === steps.length - 1 ? (
                   "完成"
                 ) : (
                   <Typography variant="h6">下一步</Typography>
+                )} */}
+
+                {activeStep === 0 ? (
+                  <Typography variant="h6">下一步</Typography>
+                ) : (
+                  <Typography variant="h6">掃描</Typography>
                 )}
               </Button>
             </Box>

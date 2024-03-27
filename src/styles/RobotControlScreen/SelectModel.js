@@ -24,9 +24,10 @@ export const StyleTabsBox = styled(Box)({
   position: "relative",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
+  // justifyContent: "space-between",
   width: "100%",
-  height: "60vh",
+  // height: "60vh",
+  flex: 1,
 });
 export const StyleTextFieldBox = styled(Box)({
   postion: "relative",

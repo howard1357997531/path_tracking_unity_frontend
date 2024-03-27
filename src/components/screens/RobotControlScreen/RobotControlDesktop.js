@@ -17,7 +17,6 @@ function RobotControlDesktop() {
           md: "row",
         }}
         sx={{
-          display: "flex",
           justifyContent: "space-between",
           padding: "10px",
         }}

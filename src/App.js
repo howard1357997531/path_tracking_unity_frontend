@@ -5,8 +5,9 @@ import { DrawerHeader } from "./components/nav/DrawerHeader";
 import MiniDrawer from "./components/nav/MiniDrawer";
 
 import { useState } from "react";
-import CreateModelScreen from "./screens/CreateModelScreen";
 import HomeScreen from "./screens/HomeScreen";
+import CreateModelScreen from "./screens/CreateModelScreen";
+import InitialObjectScreen from "./screens/InitialObjectScreen";
 import RobotControlScreen from "./screens/RobotControlScreen";
 import DrawScreen from "./screens/DrawScreen";
 import FixScreen from "./screens/FixScreen";
@@ -29,6 +30,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/create-model" element={<CreateModelScreen />} />
+              <Route path="/initial-object" element={<InitialObjectScreen />} />
               <Route path="/robot-control" element={<RobotControlScreen />} />
               <Route path="/draw-object" element={<DrawScreen />} />
               <Route path="/fix-object" element={<FixScreen />} />

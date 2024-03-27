@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material";
-import { brown } from "@mui/material/colors";
+import { blue, brown, grey } from "@mui/material/colors";
 
 export const StyleBox = styled(Box)({
   position: "relative",
@@ -18,7 +18,7 @@ export const StyleStepperBox = styled(Box)({
 
 export const StyleStepperContentBox = styled(Box)({
   height: "50vh",
-  backgroundColor: "#red",
+  // backgroundColor: "red",
 });
 
 export const StyleStepper1Typography = styled(Typography)({
@@ -72,15 +72,19 @@ export const StyleStepper2Typography = styled(Typography)({
 
 export const StyleStepper3SpinnerBox = styled(Box)({
   position: "absolute",
-  top: "55%",
+  top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
+  fontSize: 46,
+  fontWeight: 600,
+  color: blue[700],
 });
 
 export const StyleStepper3Typography = styled(Typography)({
   position: "absolute",
-  top: "63%",
+  bottom: "10%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  color: `${brown[500]}`,
+  color: grey[800],
+  // fontWeight: 600
 });

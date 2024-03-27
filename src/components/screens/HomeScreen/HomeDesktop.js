@@ -103,7 +103,7 @@ function HomeDesktop() {
           onMouseLeave={() => handleMouseLeave("secondBtn")}
           className="aoxItem"
         >
-          使用現有模型
+          手臂控制台
         </StyleButton>
       </StyleStack>
 

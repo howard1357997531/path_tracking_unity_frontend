@@ -12,6 +12,7 @@ import {
   StyleTypography,
 } from "../../../styles/RobotControlScreen/Using3DModel.js";
 import {
+  Box,
   Card,
   CardMedia,
   Dialog,
@@ -36,7 +37,7 @@ function Using3DModel() {
   const dispatch = useDispatch();
   const { loading, objects } = useSelector((state) => state.objectDetail);
   const { select } = useSelector((state) => state.objectSetData);
-  // const [objectDetail, setObjectDetail] = useState(objects);
+
   const [selectObject, setSelectObject] = useState({});
   const [hasSelectObject, setHasSelectObject] = useState(false);
 
@@ -59,6 +60,12 @@ function Using3DModel() {
     "&:active": {
       transform: "scale(0.95)",
     },
+  });
+
+  const DecsText = styled(Box)({
+    paddingTop: "2px",
+    fontSize: 18,
+    fontWeight: 600,
   });
 
   // Dialog
@@ -134,18 +141,13 @@ function Using3DModel() {
               </Card>
             </StyleBox1>
             <StyleBox2>
-              <Typography variant="h6">{selectObject.name}</Typography>
+              <DecsText>{selectObject.name}</DecsText>
             </StyleBox2>
-            <StyleBox3
-              sx={{
-                paddingRight: "10px",
-                color: "#76ff03",
-              }}
-            >
+            <StyleBox3>
               <CheckBoxOutlinedIcon
                 sx={{ marginRight: "1px", fontSize: "24px" }}
               />
-              <Typography variant="h6">目前使用</Typography>
+              <DecsText>目前使用</DecsText>
             </StyleBox3>
           </>
         ) : (

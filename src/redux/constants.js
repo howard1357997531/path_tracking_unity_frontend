@@ -1,3 +1,31 @@
+// initial object detail
+export const INITIAL_OBJECT_REQUEST = "INITIAL_OBJECT_REQUEST";
+export const INITIAL_OBJECT_SUCCESS = "INITIAL_OBJECT_SUCCESS";
+export const INITIAL_OBJECT_FAIL = "INITIAL_OBJECT_FAIL";
+
+// initial object select or remove model
+export const INITIAL_OBJECT_SELECT_OR_REMOVE_REQUEST =
+  "INITIAL_OBJECT_SELECT_OR_REMOVE_REQUEST";
+export const INITIAL_OBJECT_SELECT_OR_REMOVE_SUCCESS =
+  "INITIAL_OBJECT_SELECT_OR_REMOVE_SUCCESS";
+export const INITIAL_OBJECT_SELECT_OR_REMOVE_FAIL =
+  "INITIAL_OBJECT_SELECT_OR_REMOVE_FAIL";
+
+// initial object is_pinned or not model
+export const INITIAL_OBJECT_ISPINNED_OR_NOT_REQUEST =
+  "INITIAL_OBJECT_ISPINNED_OR_NOT_REQUEST";
+export const INITIAL_OBJECT_ISPINNED_OR_NOT_SUCCESS =
+  "INITIAL_OBJECT_ISPINNED_OR_NOT_SUCCESS";
+export const INITIAL_OBJECT_ISPINNED_OR_NOT_FAIL =
+  "INITIAL_OBJECT_ISPINNED_OR_NOT_FAIL";
+
+// initial object set data
+export const INITIAL_OBJECT_SET_INITIAL_DATA = "NITIAL_OBJECT_SET_INITIAL_DATA";
+export const INITIAL_OBJECT_SET_SELECT_DATA = "NITIAL_OBJECT_SET_SELECT_DATA";
+
+// ---------------------------------------------------------------
+// ---------------------------------------------------------------
+
 // object detail
 export const OBJECT_DETAIL_REQUEST = "OBJECT_DETAIL_REQUEST";
 export const OBJECT_DETAIL_SUCCESS = "OBJECT_DETAIL_SUCCESS";

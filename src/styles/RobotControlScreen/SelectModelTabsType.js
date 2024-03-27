@@ -1,6 +1,8 @@
 import { Box, Button, Stack, styled } from "@mui/material";
 import {
+  blue,
   brown,
+  grey,
   lightBlue,
   orange,
   red,
@@ -38,7 +40,26 @@ export const StyleIconBox = styled(Box)({
   display: "flex",
   justifyContent: "right",
   alignItems: "center",
-  paddingRight: "1%",
+});
+
+export const SelectInitialBtn = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  marginRight: 5,
+  padding: "4px 8px",
+  color: grey[800],
+  backgroundColor: blue[500],
+  fontSize: 14,
+  fontWeight: 600,
+  borderRadius: "5px",
+  "&:hover": {
+    cursor: "pointer",
+    transform: "scale(1.05)",
+  },
+  "&:active": {
+    transform: "scale(.95)",
+  },
 });
 
 export const StyleSettingsApplicationsOutlinedIcon = styled(
@@ -75,11 +96,11 @@ export const StylePushPinRoundedIcon = styled(PushPinRoundedIcon)({
   fontSize: "30px",
   "&:hover": {
     cursor: "pointer",
-    transform: "scale(1.2)",
+    transform: "scale(1.05)",
     transition: "all 0.1s ease-in-out",
   },
   "&:active": {
-    transform: "scale(0.9)",
+    transform: "scale(.95)",
   },
 });
 

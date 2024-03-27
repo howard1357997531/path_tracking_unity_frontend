@@ -22,6 +22,7 @@ import ModeEditOutlineTwoToneIcon from "@mui/icons-material/ModeEditOutlineTwoTo
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import HistoryIcon from "@mui/icons-material/History";
 import SettingsIcon from "@mui/icons-material/Settings";
+import ViewInArIcon from "@mui/icons-material/ViewInAr";
 import { useNavigate } from "react-router-dom";
 import { brown, deepPurple, grey, purple, yellow } from "@mui/material/colors";
 import { Badge, Box, Tooltip } from "@mui/material";
@@ -170,6 +171,7 @@ export default function MiniDrawer() {
 
   const drawerItem = [
     { name: "首頁", url: "/" },
+    { name: "初始模型", url: "/initial-object" },
     { name: "手臂控制台", url: "/robot-control" },
     { name: "3D模型畫點", url: "/draw-object" },
     { name: "3D模型修改", url: "/fix-object" },
@@ -179,6 +181,7 @@ export default function MiniDrawer() {
 
   const iconStyle = [
     <OtherHousesIcon />,
+    <ViewInArIcon />,
     <PrecisionManufacturingIcon />,
     <ModeEditOutlineTwoToneIcon />,
     <AutoFixHighIcon />,

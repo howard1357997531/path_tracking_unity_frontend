@@ -22,14 +22,19 @@ export const StyleBox1 = styled(Box)({
 
 export const StyleBox2 = styled(Box)({
   flexGrow: 1,
-  paddingLeft: "5%",
+  marginLeft: "8px",
+  color: yellow[300],
 });
 
 export const StyleBox3 = styled(Box)({
+  position: "absolute",
+  top: "50%",
+  right: "12px",
+  transform: "translateY(-50%)",
   display: "flex",
   justifyContent: "right",
   alignItems: "center",
-  width: "30%",
+  color: "#76ff03",
 });
 
 export const StyleTypography = styled(Typography)({

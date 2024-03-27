@@ -44,7 +44,7 @@ function DrawDesktop() {
   const [isAbleURL, setAbleURL] = useState(false);
   const [isAbleID, setAbleID] = useState(false);
 
-  const { initial } = useSelector((state) => state.objectSetData);
+  const { initial } = useSelector((state) => state.initialObjectSetData);
 
   const urlSwitch = async () => {
     sendMessage("Model", "ChangeURL", customURL);

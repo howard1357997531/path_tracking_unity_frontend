@@ -131,7 +131,7 @@ function SelectModelTabsType({ title }) {
       ) : title === "commonly used" ? (
         objects.map((object) =>
           object.is_pinned ? (
-            <StyleStack direction="row" columnGap={2} key={object.id}>
+            <StyleStack direction="row" key={object.id}>
               <Box flex={1}>
                 <Card>
                   <CardMedia
@@ -144,7 +144,7 @@ function SelectModelTabsType({ title }) {
                 </Card>
               </Box>
 
-              <Box flex={2} sx={{ marginLeft: "10px" }}>
+              <Box flex={2} sx={{ marginLeft: "15px" }}>
                 <Typography>{object.name}</Typography>
               </Box>
 
@@ -169,7 +169,7 @@ function SelectModelTabsType({ title }) {
         )
       ) : (
         objects.map((object) => (
-          <StyleStack direction="row" columnGap={2} key={object.id}>
+          <StyleStack direction="row" key={object.id}>
             <Box flex={1}>
               <Card>
                 <CardMedia
@@ -182,7 +182,7 @@ function SelectModelTabsType({ title }) {
               </Card>
             </Box>
 
-            <Box flex={2} sx={{ marginLeft: "10px" }}>
+            <Box flex={2} sx={{ marginLeft: "15px" }}>
               <Typography>{object.name}</Typography>
             </Box>
 
