@@ -54,6 +54,7 @@ export default function CreateModelDesktop() {
       .post(`${domain}/screen_shot/`)
       .then((res) => {
         if (res.data.state === "ok") {
+          console.log(res.data);
           setImage(res.data.image);
         } else {
           setImage(null);

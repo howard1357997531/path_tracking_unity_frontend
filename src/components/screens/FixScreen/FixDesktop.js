@@ -128,8 +128,6 @@ function FixDesktop() {
     }
   }, [isDownload, isAbleID, isAbleURL]);
 
-  const [objPath, setObjPath] = useState("./1_1.ply");
-
   const idSelect = async () => {
     console.log(modify.id, modify.objUrl);
     const initialData = initial ? initial : 1;
